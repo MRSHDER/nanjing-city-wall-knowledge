@@ -6,6 +6,8 @@ export interface MissionChoice {
   id: string
   label: string
   correct: boolean
+  /** 点到错误选项时立刻给出的短提示。 */
+  hint?: string
 }
 
 export interface Mission {
@@ -26,6 +28,7 @@ export interface Achievement {
   id: AchievementId
   title: string
   description: string
+  /** 达成条件：完成这些节点即可。 */
   requiredCompletedNodeIds: NodeId[]
 }
 
