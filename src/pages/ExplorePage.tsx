@@ -14,16 +14,35 @@ export function ExplorePage() {
       <header className="explore-header">
         <ProgressBar />
         <TimelineRail />
-        <KioskButton onClick={reset}>重新开始</KioskButton>
+        <KioskButton className="reset-btn" onClick={reset}>
+          重新开始
+        </KioskButton>
       </header>
 
       <KnowledgeMap />
 
       {session.selectedNodeId ? <KnowledgeDetail /> : null}
 
-      <div style={{ position: 'absolute', left: 32, bottom: 24, zIndex: 4 }}>
-        <AchievementList />
-      </div>
+      <AchievementList />
+
+      <ul className="map-legend" aria-label="节点状态说明">
+        <li>
+          <i className="is-locked" />
+          未解锁
+        </li>
+        <li>
+          <i className="is-available" />
+          可探索
+        </li>
+        <li>
+          <i className="is-discovered" />
+          已发现
+        </li>
+        <li>
+          <i className="is-completed" />
+          已完成
+        </li>
+      </ul>
     </main>
   )
 }

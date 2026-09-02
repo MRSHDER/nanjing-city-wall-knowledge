@@ -4,9 +4,13 @@ export function TimelineRail() {
   const { catalog } = useExploration()
 
   return (
-    <ol style={{ display: 'flex', gap: 24, listStyle: 'none', padding: 0 }}>
-      {catalog.periods.map((period) => (
-        <li key={period.id}>{period.name}</li>
+    <ol className="timeline-rail" aria-label="历史时期">
+      {catalog.periods.map((period, index) => (
+        <li key={period.id}>
+          {index > 0 ? <span className="timeline-rail__line" /> : null}
+          <i />
+          {period.name}
+        </li>
       ))}
     </ol>
   )

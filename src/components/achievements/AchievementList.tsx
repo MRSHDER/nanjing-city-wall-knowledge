@@ -1,18 +1,23 @@
-import { knowledgeService } from '@/services/knowledgeService'
 import { useExploration } from '@/state/ExplorationContext'
 
 export function AchievementList() {
-  const { session } = useExploration()
-  const items = knowledgeService.getAchievements()
+  const { session, catalog } = useExploration()
+  const completed = catalog.nodes.filter(
+    (node) => session.nodeStatusById[node.id] === 'completed',
+  )
 
   return (
-    <ul>
-      {items.map((item) => (
-        <li key={item.id}>
-          {session.unlockedAchievementIds.includes(item.id) ? '已获得' : '未获得'} ·{' '}
-          {item.title}
-        </li>
-      ))}
-    </ul>
+    <aside className="explore-record" aria-label="探索记录">
+      <div className="explore-record__title">探索记录</div>
+      {completed.length === 0 ? (
+        <p>暂无发现</p>
+      ) : (
+        <ol>
+          {completed.map((node) => (
+            <li key={node.id}>{node.title}</li>
+          ))}
+        </ol>
+      )}
+    </aside>
   )
 }
