@@ -108,14 +108,28 @@ button:focus-visible {
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
 }
 
+.knowledge-detail__eyebrow {
+  margin-bottom: 10px;
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .knowledge-detail h2 {
   margin: 0 0 12px;
   font-size: 38px;
 }
 
-.knowledge-detail > p {
+.knowledge-detail > .knowledge-detail__summary,
+.knowledge-detail__body p {
   line-height: 1.85;
   color: var(--color-muted);
+}
+
+.knowledge-detail__summary {
+  font-size: 21px;
 }
 
 .knowledge-detail .mission-panel {
@@ -197,6 +211,59 @@ button:focus-visible {
 
 .mission-success span {
   color: var(--color-muted);
+}
+
+.brick-inscription-card {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid rgba(203, 184, 146, 0.26);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(102, 76, 45, 0.28), rgba(48, 38, 28, 0.72));
+}
+
+.brick-inscription-card__label {
+  margin-bottom: 14px;
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.brick-inscription-card__brick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 18px;
+  padding: 20px;
+  border: 1px solid rgba(203, 184, 146, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    #604b36;
+  background-size: 22px 22px;
+  color: #f1dfbb;
+  font-size: 20px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.brick-inscription-card__copy strong {
+  display: block;
+  margin-top: 18px;
+  font-size: 20px;
+}
+
+.brick-inscription-card__copy p {
+  margin: 8px 0 16px;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.brick-inscription-card__action {
+  width: 100%;
+  background: rgba(212, 160, 23, 0.14);
+  border-color: rgba(212, 160, 23, 0.5);
+  color: var(--color-text);
 }
 
 .home-page {
