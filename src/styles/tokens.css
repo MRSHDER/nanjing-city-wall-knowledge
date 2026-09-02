@@ -1,0 +1,17 @@
+:root {
+  --screen-w: 1920px;
+  --screen-h: 1080px;
+  --color-bg: #1b1712;
+  --color-panel: #2a241c;
+  --color-line: #8a7348;
+  --color-text: #f3ead7;
+  --color-muted: #cbb892;
+  --color-locked: #4a4338;
+  --color-available: #d4a017;
+  --color-discovered: #e8d5a3;
+  --color-selected: #f3ead7;
+  --color-completed: #6f9e6b;
+  --tap-min: 64px;
+  --font-min: 18px;
+  --font-title: 32px;
+}
