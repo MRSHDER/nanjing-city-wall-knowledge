@@ -1,0 +1,80 @@
+.map-node--available .map-node__glow {
+  animation: node-pulse 1.8s ease-in-out infinite;
+}
+
+.map-node--completed circle:nth-of-type(2),
+.map-node--completed circle:nth-of-type(3) {
+  filter: drop-shadow(0 0 10px rgba(127, 178, 119, 0.45));
+}
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.16; }
+  50% { opacity: 0.34; }
+}
+
+.inscription-quest,
+.logistics-path {
+  margin: 22px 0;
+  padding: 18px;
+  border: 1px solid rgba(212, 160, 23, 0.28);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.role-match {
+  display: grid;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.role-match__row {
+  display: grid;
+  gap: 8px;
+}
+
+.role-match__duties {
+  display: grid;
+  gap: 8px;
+}
+
+.logistics-path__steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.logistics-step {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(203, 184, 146, 0.25);
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+.logistics-step b {
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.logistics-step.selected {
+  background: rgba(212, 160, 23, 0.16);
+  border-color: var(--color-available);
+}
+
+.logistics-path__text {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.logistics-path__text strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-text);
+  font-size: 20px;
+}
