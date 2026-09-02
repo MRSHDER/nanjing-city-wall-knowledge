@@ -15,6 +15,8 @@ export interface Mission {
   prompt: string
   kind: MissionKind
   choices?: MissionChoice[]
+  /** 答对后的简短史实说明。 */
+  explanation?: string
   /** 完成后新变为 available 的节点。 */
   unlocksNodeIds: NodeId[]
   exploreValue: number
@@ -24,7 +26,6 @@ export interface Achievement {
   id: AchievementId
   title: string
   description: string
-  /** 达成条件：完成这些节点即可。 */
   requiredCompletedNodeIds: NodeId[]
 }
 

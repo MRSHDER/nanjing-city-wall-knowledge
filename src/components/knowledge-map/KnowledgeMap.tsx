@@ -27,7 +27,8 @@ export function KnowledgeMap() {
             relation={relation}
             from={from.position}
             to={to.position}
-            visible={from.status !== 'locked' || to.status !== 'locked'}
+            fromStatus={from.status}
+            toStatus={to.status}
           />
         )
       })}
