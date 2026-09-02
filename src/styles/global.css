@@ -1,2 +1,82 @@
 @import './tokens.css';
 @import './exhibit.css';
+
+* { box-sizing: border-box; }
+html, body, #root {
+  margin: 0; width: 100%; height: 100%;
+  background: var(--color-bg); color: var(--color-text);
+  font-family: 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', serif;
+  font-size: var(--font-min); user-select: none; touch-action: manipulation;
+}
+body { overflow: hidden; }
+button {
+  min-height: var(--tap-min); min-width: var(--tap-min); padding: 12px 24px;
+  font: inherit; font-size: 20px; border: 1px solid rgba(212, 160, 23, 0.45);
+  border-radius: 10px; background: var(--color-available); color: #1b1712; cursor: pointer;
+}
+button:disabled { opacity: 0.45; cursor: default; }
+button:focus-visible { outline: 3px solid var(--color-discovered); outline-offset: 3px; }
+.kiosk-shell {
+  position: relative; width: 100vw; height: 100vh; overflow: hidden;
+  background: radial-gradient(circle at 52% 42%, rgba(138, 115, 72, 0.14), transparent 42%),
+    linear-gradient(135deg, #18140f 0%, #231d15 55%, #17130f 100%);
+}
+.explore-page { position: relative; width: 100%; height: 100%; }
+.explore-header {
+  position: absolute; z-index: 5; top: 20px; left: 32px; right: 32px;
+  display: flex; align-items: center; gap: 28px; pointer-events: none;
+}
+.explore-header > * { pointer-events: auto; }
+.knowledge-map {
+  position: absolute; inset: 112px 0 0; width: 100%; height: calc(100% - 112px);
+}
+.knowledge-map text { font-family: 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', serif; }
+.knowledge-detail {
+  position: absolute; z-index: 10; top: 104px; right: 32px; bottom: 32px;
+  width: min(560px, 38vw); overflow: auto; padding: 34px;
+  border: 1px solid rgba(212, 160, 23, 0.45); border-radius: 18px;
+  background: rgba(31, 26, 20, 0.97); box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+}
+.knowledge-detail__eyebrow {
+  margin-bottom: 10px; color: var(--color-available); font-family: sans-serif;
+  font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.knowledge-detail h2 { margin: 0 0 12px; font-size: 38px; }
+.knowledge-detail > .knowledge-detail__summary, .knowledge-detail__body p {
+  line-height: 1.85; color: var(--color-muted);
+}
+.knowledge-detail__summary { font-size: 21px; }
+.knowledge-detail .mission-panel { margin: 28px 0; }
+.mission-kicker { margin-bottom: 8px; font-size: 15px; letter-spacing: 0.16em; color: var(--color-available); }
+.mission-panel h3 { margin: 0 0 10px; font-size: 26px; }
+.mission-panel p { line-height: 1.7; }
+.mission-choices { display: grid; gap: 12px; margin: 18px 0; }
+.mission-choice {
+  width: 100%; display: flex; align-items: center; gap: 14px; text-align: left;
+  background: rgba(255, 255, 255, 0.055); border-color: rgba(203, 184, 146, 0.28); color: var(--color-text);
+}
+.mission-choice span {
+  display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 36px;
+  border-radius: 50%; background: rgba(212, 160, 23, 0.18); color: var(--color-available);
+  font-family: sans-serif; font-size: 14px;
+}
+.mission-choice.selected { border-color: var(--color-available); background: rgba(212, 160, 23, 0.14); }
+.mission-choice.correct { border-color: rgba(127, 178, 119, 0.7); background: rgba(111, 158, 107, 0.16); }
+.mission-choice.wrong { border-color: rgba(176, 122, 104, 0.55); background: rgba(180, 80, 60, 0.1); }
+.mission-feedback { display: grid; gap: 6px; padding: 12px 14px; border-radius: 8px; }
+.mission-feedback strong { font-size: 18px; }
+.mission-feedback span { color: var(--color-muted); line-height: 1.65; }
+.mission-feedback.wrong { background: rgba(180, 80, 60, 0.12); border: 1px solid rgba(176, 122, 104, 0.28); }
+.mission-feedback.correct, .mission-success {
+  background: rgba(111, 158, 107, 0.12); border: 1px solid rgba(111, 158, 107, 0.3);
+}
+.mission-success { display: grid; gap: 6px; padding: 16px; margin: 18px 0; }
+.inscription-quest, .logistics-path {
+  margin: 22px 0; padding: 18px; border: 1px solid rgba(212, 160, 23, 0.28);
+  border-radius: 14px; background: rgba(0, 0, 0, 0.16);
+}
+.role-match { display: grid; gap: 16px; margin: 16px 0; }
+.role-match__duties { display: grid; gap: 8px; }
+@keyframes node-pulse { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.34; } }
+@keyframes choice-fade { from { opacity: 0.72; } to { opacity: 1; } }
+.map-node--available .map-node__glow { animation: node-pulse 1.8s ease-in-out infinite; }
