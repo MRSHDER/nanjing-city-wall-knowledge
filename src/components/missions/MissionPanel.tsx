@@ -49,11 +49,11 @@ export function MissionPanel({ mission }: Props) {
       <p>{mission.prompt}</p>
 
       {done && status === 'idle' ? (
-        <div className="mission-success">
-          <strong>探索完成</strong>
+        <div className="mission-feedback correct">
+          <strong>✓ 判断正确</strong>
           <span>
+            {mission.explanation ? `${mission.explanation} ` : ''}
             已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。
-            {mission.explanation ? ` ${mission.explanation}` : ''}
           </span>
         </div>
       ) : mission.kind === 'choose' ? (
@@ -99,15 +99,13 @@ export function MissionPanel({ mission }: Props) {
               <p className="mission-feedback correct">
                 <strong>✓ 判断正确</strong>
                 <span>
-                  {mission.explanation ?? '你找到了这条知识线索，可以继续向前探索。'}
+                  {mission.explanation ?? '你找到了这条知识线索。'}
+                  {done
+                    ? ` 已获得 ${mission.exploreValue} 点探索值，新的知识节点已解锁。`
+                    : ''}
                 </span>
               </p>
-              {done ? (
-                <div className="mission-success">
-                  <strong>探索完成</strong>
-                  <span>已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。</span>
-                </div>
-              ) : (
+              {done ? null : (
                 <KioskButton onClick={continueAfterCorrect}>继续探索 →</KioskButton>
               )}
             </>
