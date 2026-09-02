@@ -1,0 +1,10 @@
+export type NodeId = string
+export type RelationId = string
+export type CategoryId = string
+export type PeriodId = string
+export type PersonId = string
+export type LocationId = string
+export type ArtifactId = string
+export type MissionId = string
+export type AchievementId = string
+export type TagId = string
