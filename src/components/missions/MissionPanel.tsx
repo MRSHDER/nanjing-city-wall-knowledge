@@ -16,7 +16,6 @@ export function MissionPanel({ mission }: Props) {
   function submitChoice() {
     const choice = mission.choices?.find((item) => item.id === selectedChoiceId)
     if (!choice) return
-
     if (choice.correct) {
       setFeedback('correct')
       finishMission(mission)
@@ -30,11 +29,13 @@ export function MissionPanel({ mission }: Props) {
       <div className="mission-kicker">探索任务</div>
       <h3>{mission.title}</h3>
       <p>{mission.prompt}</p>
-
       {done ? (
         <div className="mission-success">
           <strong>探索完成</strong>
-          <span>已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。</span>
+          <span>
+            已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。
+            {mission.explanation ? ` ${mission.explanation}` : ''}
+          </span>
         </div>
       ) : mission.kind === 'choose' ? (
         <>
@@ -58,7 +59,9 @@ export function MissionPanel({ mission }: Props) {
             <p className="mission-feedback wrong">再想想。线索就在上面的知识介绍里。</p>
           ) : null}
           {feedback === 'correct' ? (
-            <p className="mission-feedback correct">回答正确，正在展开新的知识路径。</p>
+            <p className="mission-feedback correct">
+              回答正确。{mission.explanation ?? '正在展开新的知识路径。'}
+            </p>
           ) : null}
           <KioskButton disabled={!selectedChoiceId} onClick={submitChoice}>
             确认答案
