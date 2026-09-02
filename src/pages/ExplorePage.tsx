@@ -10,17 +10,20 @@ export function ExplorePage() {
   const { session, reset } = useExploration()
 
   return (
-    <main>
-      <header style={{ display: 'flex', gap: 24, padding: 16, alignItems: 'center' }}>
+    <main className="explore-page">
+      <header className="explore-header">
         <ProgressBar />
         <TimelineRail />
         <KioskButton onClick={reset}>重新开始</KioskButton>
       </header>
+
       <KnowledgeMap />
+
       {session.selectedNodeId ? <KnowledgeDetail /> : null}
-      <footer style={{ padding: 16 }}>
+
+      <div style={{ position: 'absolute', left: 32, bottom: 24, zIndex: 4 }}>
         <AchievementList />
-      </footer>
+      </div>
     </main>
   )
 }
