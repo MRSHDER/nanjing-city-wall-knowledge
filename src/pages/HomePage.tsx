@@ -4,9 +4,17 @@ import { useExploration } from '@/state/ExplorationContext'
 
 export function HomePage() {
   const { start } = useExploration()
+  const hero = `${import.meta.env.BASE_URL}images/home-hero.jpg`
 
   return (
-    <main className="home-page">
+    <main
+      className="home-page"
+      style={{
+        backgroundImage: `linear-gradient(90deg, rgba(12,10,8,.72) 12%, rgba(12,10,8,.28) 46%, rgba(12,10,8,.08) 70%), url(${hero})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center right',
+      }}
+    >
       <div className="home-content">
         <div className="home-brand">
           <span className="home-brand__mark" aria-hidden />
