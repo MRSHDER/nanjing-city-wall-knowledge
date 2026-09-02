@@ -8,20 +8,46 @@ const ROLES = [
     id: 'jiaoshou',
     name: '甲首',
     duty: '基层组织负责人，向上对接总甲，向下联络小甲与人夫',
+    hint: '“甲首”并不是具体烧砖的窑匠，也不是只管运砖的人。再看看铭文里的身份顺序。',
   },
   {
     id: 'yaojiang',
     name: '窑匠',
     duty: '掌握烧造工艺，对入窑成砖的质量负责',
+    hint: '窑匠才是负责烧制城砖的角色。',
   },
   {
     id: 'renfu',
     name: '造砖人夫',
     duty: '直接参与制坯、运泥等劳作',
+    hint: '造砖人夫是直接动手制砖的人，不是基层组织负责人。',
   },
 ] as const
 
 const DUTY_OPTIONS = ROLES.map((role) => role.duty)
+
+const JUDGE_OPTIONS = [
+  {
+    id: 'jiaoshou',
+    label: '基层组织里的负责人',
+    correct: true,
+    explanation: '“甲首”属于责任体系中的管理角色，与具体负责烧制城砖的窑匠不同。',
+  },
+  {
+    id: 'transport',
+    label: '负责运输城砖',
+    correct: false,
+    hint: '可以再看看铭文中的身份关系。“甲首”并不是具体运砖或烧砖的人。',
+  },
+  {
+    id: 'yaojiang',
+    label: '负责烧制城砖',
+    correct: false,
+    hint: '窑匠才是负责烧制城砖的角色。再看看铭文中的身份关系。',
+  },
+] as const
+
+type JudgeStatus = 'idle' | 'wrong' | 'correct'
 
 interface Props {
   mission: Mission
@@ -33,27 +59,55 @@ export function InscriptionQuest({ mission }: Props) {
   const [step, setStep] = useState<'observe' | 'judge' | 'match' | 'conclude'>(
     done ? 'conclude' : 'observe',
   )
+  const [judgeStatus, setJudgeStatus] = useState<JudgeStatus>('idle')
   const [judgeId, setJudgeId] = useState<string | null>(null)
-  const [judgeWrong, setJudgeWrong] = useState(false)
+  const [judgeHint, setJudgeHint] = useState<string | null>(null)
+  const [triedJudgeIds, setTriedJudgeIds] = useState<string[]>([])
   const [picks, setPicks] = useState<Record<string, string>>({})
-  const [matchWrong, setMatchWrong] = useState(false)
+  const [rowHints, setRowHints] = useState<Record<string, string>>({})
+  const [matchLocked, setMatchLocked] = useState(false)
 
-  function submitJudge() {
-    if (judgeId === 'jiaoshou') {
-      setJudgeWrong(false)
-      setStep('match')
-    } else {
-      setJudgeWrong(true)
-    }
-  }
+  function onJudge(optionId: string) {
+    if (judgeStatus === 'correct') return
+    const option = JUDGE_OPTIONS.find((item) => item.id === optionId)
+    if (!option) return
 
-  function submitMatch() {
-    const allCorrect = ROLES.every((role) => picks[role.id] === role.duty)
-    if (!allCorrect) {
-      setMatchWrong(true)
+    setJudgeId(option.id)
+    if (option.correct) {
+      setJudgeStatus('correct')
+      setJudgeHint(null)
       return
     }
-    setMatchWrong(false)
+
+    setJudgeStatus('wrong')
+    setTriedJudgeIds((prev) => (prev.includes(option.id) ? prev : [...prev, option.id]))
+    setJudgeHint(option.hint)
+  }
+
+  function onPickDuty(roleId: string, duty: string) {
+    if (matchLocked) return
+    const role = ROLES.find((item) => item.id === roleId)
+    if (!role) return
+
+    const nextPicks = { ...picks, [roleId]: duty }
+    setPicks(nextPicks)
+
+    if (duty !== role.duty) {
+      setRowHints((prev) => ({ ...prev, [roleId]: role.hint }))
+      return
+    }
+
+    setRowHints((prev) => {
+      const next = { ...prev }
+      delete next[roleId]
+      return next
+    })
+
+    const allCorrect = ROLES.every((item) => nextPicks[item.id] === item.duty)
+    if (allCorrect) setMatchLocked(true)
+  }
+
+  function finishQuest() {
     if (!done) finishMission(mission)
     setStep('conclude')
   }
@@ -89,14 +143,48 @@ export function InscriptionQuest({ mission }: Props) {
     return (
       <section className="inscription-quest" aria-label="判断身份">
         <div className="mission-kicker">第二步 · 判断</div>
-        <h3>「甲首」更接近哪种角色？</h3>
+        <h3>「甲首」在城砖责任体系中承担什么角色？</h3>
         <div className="mission-choices">
-          <button type="button" className={judgeId === 'jiaoshou' ? 'mission-choice selected' : 'mission-choice'} onClick={() => { setJudgeId('jiaoshou'); setJudgeWrong(false) }}>基层组织里的负责人</button>
-          <button type="button" className={judgeId === 'officer' ? 'mission-choice selected' : 'mission-choice'} onClick={() => { setJudgeId('officer'); setJudgeWrong(false) }}>负责验收城门的武将</button>
-          <button type="button" className={judgeId === 'scribe' ? 'mission-choice selected' : 'mission-choice'} onClick={() => { setJudgeId('scribe'); setJudgeWrong(false) }}>只负责在砖上画画的画师</button>
+          {JUDGE_OPTIONS.map((option) => {
+            const isCorrectPick = judgeStatus === 'correct' && option.correct
+            const isTriedWrong = triedJudgeIds.includes(option.id)
+            const className = [
+              'mission-choice',
+              judgeId === option.id ? 'selected' : '',
+              isCorrectPick ? 'correct' : '',
+              isTriedWrong && !option.correct ? 'wrong' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')
+
+            return (
+              <button
+                key={option.id}
+                type="button"
+                className={className}
+                disabled={judgeStatus === 'correct'}
+                onClick={() => onJudge(option.id)}
+              >
+                {option.label}
+              </button>
+            )
+          })}
         </div>
-        {judgeWrong ? <p className="mission-feedback wrong">再看一眼砖文。甲首写在总甲之后、小甲之前。</p> : null}
-        <KioskButton disabled={!judgeId} onClick={submitJudge}>确认判断</KioskButton>
+        {judgeStatus === 'wrong' && judgeHint ? (
+          <p className="mission-feedback wrong">
+            <strong>× 还不是</strong>
+            <span>提示：{judgeHint}</span>
+          </p>
+        ) : null}
+        {judgeStatus === 'correct' ? (
+          <>
+            <p className="mission-feedback correct">
+              <strong>✓ 判断正确</strong>
+              <span>你找到了这块城砖留下的责任线索。{JUDGE_OPTIONS[0].explanation}</span>
+            </p>
+            <KioskButton onClick={() => setStep('match')}>继续探索 →</KioskButton>
+          </>
+        ) : null}
       </section>
     )
   }
@@ -105,33 +193,57 @@ export function InscriptionQuest({ mission }: Props) {
     <section className="inscription-quest" aria-label="匹配职责">
       <div className="mission-kicker">第三步 · 推理</div>
       <h3>把三种身份和职责对上</h3>
-      <p>点选每一行的职责。三行都对上，这块砖的责任链才算读通。</p>
+      <p>点选每一行的职责。点错会立刻提示，三行都对上后再继续。</p>
       <div className="role-match">
-        {ROLES.map((role) => (
-          <div key={role.id} className="role-match__row">
-            <strong>{role.name}</strong>
-            <div className="role-match__duties">
-              {DUTY_OPTIONS.map((duty) => (
-                <button
-                  key={duty}
-                  type="button"
-                  className={picks[role.id] === duty ? 'mission-choice selected' : 'mission-choice'}
-                  onClick={() => {
-                    setPicks((prev) => ({ ...prev, [role.id]: duty }))
-                    setMatchWrong(false)
-                  }}
-                >
-                  {duty}
-                </button>
-              ))}
+        {ROLES.map((role) => {
+          const picked = picks[role.id]
+          const rowCorrect = picked === role.duty
+          return (
+            <div key={role.id} className="role-match__row">
+              <strong>{role.name}</strong>
+              <div className="role-match__duties">
+                {DUTY_OPTIONS.map((duty) => {
+                  const selected = picked === duty
+                  const className = [
+                    'mission-choice',
+                    selected ? 'selected' : '',
+                    selected && rowCorrect ? 'correct' : '',
+                    selected && !rowCorrect ? 'wrong' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')
+                  return (
+                    <button
+                      key={duty}
+                      type="button"
+                      className={className}
+                      disabled={matchLocked}
+                      onClick={() => onPickDuty(role.id, duty)}
+                    >
+                      {duty}
+                    </button>
+                  )
+                })}
+              </div>
+              {rowHints[role.id] && !rowCorrect ? (
+                <p className="mission-feedback wrong">
+                  <strong>× 还不是</strong>
+                  <span>提示：{rowHints[role.id]}</span>
+                </p>
+              ) : null}
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
-      {matchWrong ? <p className="mission-feedback wrong">还有对不上的一行。窑匠管烧，人夫管做，甲首管组织。</p> : null}
-      <KioskButton disabled={ROLES.some((role) => !picks[role.id])} onClick={submitMatch}>
-        得出结论
-      </KioskButton>
+      {matchLocked ? (
+        <>
+          <p className="mission-feedback correct">
+            <strong>✓ 判断正确</strong>
+            <span>窑匠管烧，人夫管做，甲首管组织。这块砖上的责任链已经读通。</span>
+          </p>
+          <KioskButton onClick={finishQuest}>继续探索 →</KioskButton>
+        </>
+      ) : null}
     </section>
   )
 }

@@ -1,5 +1,4 @@
 @import './tokens.css';
-@import './quest.css';
 
 * {
   box-sizing: border-box;
@@ -188,13 +187,41 @@ button:focus-visible {
   background: rgba(212, 160, 23, 0.14);
 }
 
+.mission-choice.correct {
+  border-color: rgba(127, 178, 119, 0.7);
+  background: rgba(111, 158, 107, 0.16);
+  box-shadow: 0 0 0 1px rgba(127, 178, 119, 0.18);
+}
+
+.mission-choice.wrong {
+  border-color: rgba(176, 122, 104, 0.55);
+  background: rgba(180, 80, 60, 0.1);
+}
+
+.mission-choice.correct,
+.mission-choice.wrong {
+  animation: choice-fade 220ms ease-out;
+}
+
 .mission-feedback {
-  padding: 10px 14px;
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
   border-radius: 8px;
+}
+
+.mission-feedback strong {
+  font-size: 18px;
+}
+
+.mission-feedback span {
+  color: var(--color-muted);
+  line-height: 1.65;
 }
 
 .mission-feedback.wrong {
   background: rgba(180, 80, 60, 0.12);
+  border: 1px solid rgba(176, 122, 104, 0.28);
 }
 
 .mission-feedback.correct,
@@ -342,4 +369,90 @@ button:focus-visible {
   color: var(--color-muted);
   line-height: 1.9;
   font-size: 24px;
+}
+
+.map-node--available .map-node__glow {
+  animation: node-pulse 1.8s ease-in-out infinite;
+}
+
+.map-node--completed circle:nth-of-type(2),
+.map-node--completed circle:nth-of-type(3) {
+  filter: drop-shadow(0 0 10px rgba(127, 178, 119, 0.45));
+}
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.16; r: 50; }
+  50% { opacity: 0.34; r: 58; }
+}
+
+@keyframes choice-fade {
+  from { opacity: 0.72; }
+  to { opacity: 1; }
+}
+
+.inscription-quest,
+.logistics-path {
+  margin: 22px 0;
+  padding: 18px;
+  border: 1px solid rgba(212, 160, 23, 0.28);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.role-match {
+  display: grid;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.role-match__row {
+  display: grid;
+  gap: 8px;
+}
+
+.role-match__duties {
+  display: grid;
+  gap: 8px;
+}
+
+.logistics-path__steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.logistics-step {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(203, 184, 146, 0.25);
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+.logistics-step b {
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.logistics-step.selected {
+  background: rgba(212, 160, 23, 0.16);
+  border-color: var(--color-available);
+}
+
+.logistics-path__text {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.logistics-path__text strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-text);
+  font-size: 20px;
 }
