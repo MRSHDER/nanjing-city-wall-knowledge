@@ -1,7 +1,8 @@
+import { useCallback, useEffect, useState } from 'react'
 import { knowledgeService } from '@/services/knowledgeService'
 import { useExploration } from '@/state/ExplorationContext'
 import { KioskButton } from '../common/KioskButton'
-import { MissionPanel } from '../missions/MissionPanel'
+import { MissionPanel, type MissionVerdict } from '../missions/MissionPanel'
 import { BrickInscriptionCard } from './BrickInscriptionCard'
 import { InscriptionQuest } from './InscriptionQuest'
 import { LogisticsPath } from './LogisticsPath'
@@ -15,7 +16,17 @@ const CATEGORY_LABEL: Record<string, string> = {
 }
 
 export function KnowledgeDetail() {
-  const { session, closeDetail } = useExploration()
+  const { session, closeDetail, finishMission } = useExploration()
+  const [verdict, setVerdict] = useState<MissionVerdict>('idle')
+
+  useEffect(() => {
+    setVerdict('idle')
+  }, [session.selectedNodeId])
+
+  const handleVerdict = useCallback((next: MissionVerdict) => {
+    setVerdict(next)
+  }, [])
+
   if (!session.selectedNodeId) return null
 
   const node = knowledgeService.getNode(session.selectedNodeId)
@@ -24,6 +35,16 @@ export function KnowledgeDetail() {
 
   const isInscription = node.id === 'node-inscription'
   const isLogistics = node.id === 'node-ming-logistics'
+  const answeredCorrect = verdict === 'correct'
+  const canContinue = answeredCorrect || mission?.kind === 'read'
+  const actionLabel = canContinue ? '继续探索' : '返回图谱'
+
+  function onAction() {
+    if (canContinue && mission && !session.completedMissionIds.includes(mission.id)) {
+      finishMission(mission)
+    }
+    closeDetail()
+  }
 
   return (
     <aside className="knowledge-detail" aria-label={`${node.title}知识详情`}>
@@ -50,11 +71,12 @@ export function KnowledgeDetail() {
       {isLogistics ? <LogisticsPath /> : null}
 
       {isInscription && mission ? (
-        <InscriptionQuest mission={mission} />
+        <InscriptionQuest mission={mission} onVerdictChange={handleVerdict} />
       ) : mission ? (
-        <MissionPanel mission={mission} />
+        <MissionPanel mission={mission} onVerdictChange={handleVerdict} />
       ) : null}
-      <KioskButton onClick={closeDetail}>返回图谱</KioskButton>
+
+      <KioskButton onClick={onAction}>{actionLabel}</KioskButton>
     </aside>
   )
 }

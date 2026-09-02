@@ -1,21 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useExploration } from '@/state/ExplorationContext'
 import type { Mission } from '@/types'
-import { KioskButton } from '../common/KioskButton'
 
-type ChoiceStatus = 'idle' | 'wrong' | 'correct'
+export type MissionVerdict = 'idle' | 'wrong' | 'correct'
 
 interface Props {
   mission: Mission
+  onVerdictChange?: (verdict: MissionVerdict) => void
 }
 
-export function MissionPanel({ mission }: Props) {
-  const { session, finishMission } = useExploration()
+export function MissionPanel({ mission, onVerdictChange }: Props) {
+  const { session } = useExploration()
   const done = session.completedMissionIds.includes(mission.id)
-  const [status, setStatus] = useState<ChoiceStatus>('idle')
+  const [status, setStatus] = useState<MissionVerdict>('idle')
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null)
   const [triedWrongIds, setTriedWrongIds] = useState<string[]>([])
   const [hint, setHint] = useState<string | null>(null)
+
+  useEffect(() => {
+    onVerdictChange?.(done ? 'correct' : status)
+  }, [done, status, onVerdictChange])
 
   function onPickChoice(choiceId: string) {
     if (status === 'correct' || done) return
@@ -34,10 +38,6 @@ export function MissionPanel({ mission }: Props) {
     setStatus('wrong')
     setTriedWrongIds((prev) => (prev.includes(choice.id) ? prev : [...prev, choice.id]))
     setHint(choice.hint ?? '再观察一下上面的介绍，线索就在知识正文里。')
-  }
-
-  function continueAfterCorrect() {
-    if (!done) finishMission(mission)
   }
 
   const locked = status === 'correct' || done
@@ -95,25 +95,21 @@ export function MissionPanel({ mission }: Props) {
           ) : null}
 
           {status === 'correct' ? (
-            <>
-              <p className="mission-feedback correct">
-                <strong>✓ 判断正确</strong>
-                <span>
-                  {mission.explanation ?? '你找到了这条知识线索。'}
-                  {done
-                    ? ` 已获得 ${mission.exploreValue} 点探索值，新的知识节点已解锁。`
-                    : ''}
-                </span>
-              </p>
-              {done ? null : (
-                <KioskButton onClick={continueAfterCorrect}>继续探索 →</KioskButton>
-              )}
-            </>
+            <p className="mission-feedback correct">
+              <strong>✓ 判断正确</strong>
+              <span>
+                {mission.explanation ?? '你找到了这条知识线索。'}
+                {` 已获得 ${mission.exploreValue} 点探索值，新的知识节点已解锁。`}
+              </span>
+            </p>
           ) : null}
         </>
-      ) : (
-        <KioskButton onClick={() => finishMission(mission)}>我已阅读，继续探索</KioskButton>
-      )}
+      ) : done ? (
+        <div className="mission-feedback correct">
+          <strong>✓ 探索完成</strong>
+          <span>已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。</span>
+        </div>
+      ) : null}
     </section>
   )
 }
