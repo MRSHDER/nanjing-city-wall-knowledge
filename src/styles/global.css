@@ -266,6 +266,51 @@ button:focus-visible {
   color: var(--color-text);
 }
 
+.brick-trace {
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr 20px 1fr;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.brick-trace__step {
+  display: grid;
+  gap: 3px;
+  text-align: center;
+}
+
+.brick-trace__step b {
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.brick-trace__step span {
+  font-size: 16px;
+}
+
+.brick-trace__step small {
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+.brick-trace__line {
+  height: 1px;
+  background: rgba(212, 160, 23, 0.45);
+}
+
+.brick-trace__hint {
+  grid-column: 1 / -1;
+  margin: 12px 0 0;
+  color: var(--color-muted);
+  font-size: 15px;
+  text-align: center;
+}
+
 .home-page {
   display: grid;
   place-items: center;
