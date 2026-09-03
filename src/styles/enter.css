@@ -1,0 +1,32 @@
+.enter-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: #0c0a08;
+  animation: curtain-in 1.2s ease both;
+  pointer-events: none;
+}
+
+.enter-curtain p {
+  margin: 0;
+  color: #e8dcc4;
+  letter-spacing: 0.28em;
+  font-size: 28px;
+  animation: curtain-line 1.2s ease both;
+}
+
+@keyframes curtain-in {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes curtain-line {
+  0% { opacity: 0; transform: translateY(8px); }
+  22% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
