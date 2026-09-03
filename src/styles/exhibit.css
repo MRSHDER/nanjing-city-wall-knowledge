@@ -201,3 +201,26 @@
   color: #8a8174;
   font-size: 15px;
 }
+
+.knowledge-detail h2 {
+  font-size: 30px;
+}
+
+.knowledge-detail__summary {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.text-link {
+  min-height: 48px;
+  padding: 0;
+  margin: 0 0 12px;
+  background: transparent;
+  border: 0;
+  color: var(--color-available);
+  font-size: 16px;
+}
+
+.knowledge-detail .mission-panel {
+  margin-top: 12px;
+}
