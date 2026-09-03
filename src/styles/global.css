@@ -1,5 +1,6 @@
 @import './tokens.css';
 @import './exhibit.css';
+@import './quest.css';
 
 * { box-sizing: border-box; }
 html, body, #root {
