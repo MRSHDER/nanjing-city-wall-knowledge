@@ -18,9 +18,11 @@ const CATEGORY_LABEL: Record<string, string> = {
 export function KnowledgeDetail() {
   const { session, closeDetail, finishMission } = useExploration()
   const [verdict, setVerdict] = useState<MissionVerdict>('idle')
+  const [showBody, setShowBody] = useState(false)
 
   useEffect(() => {
     setVerdict('idle')
+    setShowBody(false)
   }, [session.selectedNodeId])
 
   const handleVerdict = useCallback((next: MissionVerdict) => {
@@ -53,9 +55,18 @@ export function KnowledgeDetail() {
       </div>
       <h2>{node.title}</h2>
       <p className="knowledge-detail__summary">{node.summary}</p>
-      <div className="knowledge-detail__body">
-        <p>{node.content}</p>
-      </div>
+      {showBody ? (
+        <div className="knowledge-detail__body">
+          <p>{node.content}</p>
+          <button type="button" className="text-link" onClick={() => setShowBody(false)}>
+            收起简介
+          </button>
+        </div>
+      ) : (
+        <button type="button" className="text-link" onClick={() => setShowBody(true)}>
+          阅读简介
+        </button>
+      )}
 
       {isInscription ? (
         <BrickInscriptionCard
