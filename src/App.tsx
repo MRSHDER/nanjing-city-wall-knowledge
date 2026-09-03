@@ -15,12 +15,11 @@ export function App() {
       setScene('home')
       return
     }
-    if (scene === 'home') {
-      setScene('transit')
-      const timer = window.setTimeout(() => setScene('explore'), 1200)
-      return () => window.clearTimeout(timer)
-    }
-  }, [session.started, scene])
+
+    setScene('transit')
+    const timer = window.setTimeout(() => setScene('explore'), 1200)
+    return () => window.clearTimeout(timer)
+  }, [session.started])
 
   return (
     <KioskLayout>
