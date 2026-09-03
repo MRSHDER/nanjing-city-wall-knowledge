@@ -40,6 +40,7 @@ export function KnowledgeDetail() {
   const answeredCorrect = verdict === 'correct'
   const canContinue = answeredCorrect || mission?.kind === 'read'
   const actionLabel = canContinue ? '继续探索' : '返回图谱'
+  const brickPhoto = `${import.meta.env.BASE_URL}images/liudehua-brick.jpg`
 
   function onAction() {
     if (canContinue && mission && !session.completedMissionIds.includes(mission.id)) {
@@ -57,6 +58,12 @@ export function KnowledgeDetail() {
       <p className="knowledge-detail__summary">{node.summary}</p>
       {showBody ? (
         <div className="knowledge-detail__body">
+          {isInscription ? (
+            <figure className="knowledge-detail__photo">
+              <img src={brickPhoto} alt="南京城墙博物馆藏刘德華铭文城砖" />
+              <figcaption>南京城墙博物馆藏「刘德華」铭文城砖</figcaption>
+            </figure>
+          ) : null}
           <p>{node.content}</p>
           <button type="button" className="text-link" onClick={() => setShowBody(false)}>
             收起简介
