@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   background: #0c0a08;
-  animation: curtain-in 1.2s ease both;
+  animation: curtain-in 2.4s ease both;
   pointer-events: none;
 }
 
@@ -14,19 +14,19 @@
   color: #e8dcc4;
   letter-spacing: 0.28em;
   font-size: 28px;
-  animation: curtain-line 1.2s ease both;
+  animation: curtain-line 2.4s ease both;
 }
 
 @keyframes curtain-in {
   0% { opacity: 0; }
-  18% { opacity: 1; }
-  72% { opacity: 1; }
+  12% { opacity: 1; }
+  78% { opacity: 1; }
   100% { opacity: 0; }
 }
 
 @keyframes curtain-line {
   0% { opacity: 0; transform: translateY(8px); }
-  22% { opacity: 1; transform: translateY(0); }
-  70% { opacity: 1; }
+  14% { opacity: 1; transform: translateY(0); }
+  76% { opacity: 1; }
   100% { opacity: 0; }
 }

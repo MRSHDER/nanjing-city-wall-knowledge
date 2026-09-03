@@ -17,7 +17,7 @@ export function App() {
     }
 
     setScene('transit')
-    const timer = window.setTimeout(() => setScene('explore'), 1200)
+    const timer = window.setTimeout(() => setScene('explore'), 2400)
     return () => window.clearTimeout(timer)
   }, [session.started])
 
