@@ -26,7 +26,7 @@ export const catalog: KnowledgeCatalog = {
   people: [
     {
       id: 'person-zhu-yuanzhang',
-      name: '朱元瑶',
+      name: '朱元璋',
       role: '明太祖',
       summary: '明代南京都城建设的重要决策者。',
     },
