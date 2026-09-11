@@ -40,7 +40,8 @@ export function KnowledgeNodeView({ title, caption, status, position, onOpen }: 
       {available || selected ? (
         <circle className="map-node__glow" r={54} fill="#d4a017" opacity={0.2} />
       ) : null}
-      <circle r={40} fill="transparent" />
+      {/* Keep the visible node compact while giving touch screens a forgiving hit target. */}
+      <circle r={52} fill="transparent" />
       <circle
         r={28}
         fill={FILL[status]}
@@ -55,8 +56,17 @@ export function KnowledgeNodeView({ title, caption, status, position, onOpen }: 
           <rect x={-7} y={-2} width={14} height={11} rx={2} />
           <path d="M-4 -2 V-7 a4 4 0 0 1 8 0 V-2" />
         </g>
+      ) : completed ? (
+        <path
+          d="M-8 0 L-2 6 L9 -7"
+          fill="none"
+          stroke="#d4a017"
+          strokeWidth={3}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       ) : (
-        <circle r={4} fill={completed ? '#d4a017' : '#e8d5a3'} />
+        <circle r={4} fill="#e8d5a3" />
       )}
       <text y={50} textAnchor="middle" fill="#f3ead7" fontSize={18}>
         {title}
