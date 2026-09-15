@@ -71,6 +71,25 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   margin-bottom: 14px; color: var(--color-available); font-family: sans-serif;
   font-size: 13px; letter-spacing: 0.14em;
 }
+.knowledge-detail__clue-answer {
+  display: grid; gap: 8px;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  border-radius: 12px;
+  background: rgba(212, 160, 23, 0.12);
+}
+.knowledge-detail__clue-answer span {
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+}
+.knowledge-detail__clue-answer strong {
+  color: var(--color-text);
+  font-size: 24px;
+  line-height: 1.35;
+}
 .knowledge-detail__intro-pane p {
   margin: 0; font-size: 20px; line-height: 1.8; color: var(--color-muted);
 }
