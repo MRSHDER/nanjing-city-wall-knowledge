@@ -1,0 +1,6 @@
+.completion-reopen { position: absolute; z-index: 6; top: 100px; left: 32px; }
+.completion-summary { width: min(760px, 92vw); max-height: 90vh; overflow: auto; padding: 32px; border: 1px solid #d4a017; border-radius: 18px; background: #1f1a14; color: var(--color-text); }
+.completion-summary::backdrop { background: rgb(0 0 0 / 75%); }
+.completion-summary h2 { margin-top: 12px; font-size: 30px; }
+.completion-summary p, .completion-summary li { line-height: 1.7; }
+.completion-summary form { display: inline-block; margin: 0 12px 12px 0; }
