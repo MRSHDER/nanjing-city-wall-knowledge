@@ -6,6 +6,7 @@ import { MissionPanel, type MissionVerdict } from '../missions/MissionPanel'
 import { BrickInscriptionCard } from './BrickInscriptionCard'
 import { InscriptionQuest } from './InscriptionQuest'
 import { LogisticsPath } from './LogisticsPath'
+import { NodeImages } from './NodeImages'
 
 const CATEGORY_LABEL: Record<string, string> = {
   'cat-overview': '城墙总览',
@@ -38,9 +39,8 @@ export function KnowledgeDetail() {
   const isInscription = node.id === 'node-inscription'
   const isLogistics = node.id === 'node-ming-logistics'
   const answeredCorrect = verdict === 'correct'
-  const canContinue = answeredCorrect || mission?.kind === 'read'
+  const canContinue = answeredCorrect || mission?.kind === 'read' || Boolean(mission && session.completedMissionIds.includes(mission.id))
   const actionLabel = canContinue ? '继续探索' : '返回图谱'
-  const brickPhoto = `${import.meta.env.BASE_URL}images/liudehua-brick.jpg`
 
   function onAction() {
     if (canContinue && mission && !session.completedMissionIds.includes(mission.id)) {
@@ -56,14 +56,9 @@ export function KnowledgeDetail() {
       </div>
       <h2>{node.title}</h2>
       <p className="knowledge-detail__summary">{node.summary}</p>
+      <NodeImages key={node.id} imageIds={node.imageIds} />
       {showBody ? (
         <div className="knowledge-detail__body">
-          {isInscription ? (
-            <figure className="knowledge-detail__photo">
-              <img src={brickPhoto} alt="南京城墙博物馆藏刘德華铭文城砖" />
-              <figcaption>南京城墙博物馆藏「刘德華」铭文城砖</figcaption>
-            </figure>
-          ) : null}
           <p>{node.content}</p>
           <button type="button" className="text-link" onClick={() => setShowBody(false)}>
             收起简介
@@ -89,9 +84,9 @@ export function KnowledgeDetail() {
       {isLogistics ? <LogisticsPath /> : null}
 
       {isInscription && mission ? (
-        <InscriptionQuest mission={mission} onVerdictChange={handleVerdict} />
+        <InscriptionQuest key={mission.id} mission={mission} />
       ) : mission ? (
-        <MissionPanel mission={mission} onVerdictChange={handleVerdict} />
+        <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
       ) : null}
 
       <KioskButton onClick={onAction}>{actionLabel}</KioskButton>
