@@ -50,10 +50,10 @@ export function MissionPanel({ mission, onVerdictChange }: Props) {
 
       {done && status === 'idle' ? (
         <div className="mission-feedback correct">
-          <strong>✓ 判断正确</strong>
+          <strong>✓ 探索完成</strong>
           <span>
             {mission.explanation ? `${mission.explanation} ` : ''}
-            已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。
+            这条线索已完成，可返回图谱查看探索进度。
           </span>
         </div>
       ) : mission.kind === 'choose' ? (
@@ -99,7 +99,7 @@ export function MissionPanel({ mission, onVerdictChange }: Props) {
               <strong>✓ 判断正确</strong>
               <span>
                 {mission.explanation ?? '你找到了这条知识线索。'}
-                {` 已获得 ${mission.exploreValue} 点探索值，新的知识节点已解锁。`}
+                {' 点击下方“继续探索”，记录本次发现并返回图谱。'}
               </span>
             </p>
           ) : null}
@@ -107,7 +107,7 @@ export function MissionPanel({ mission, onVerdictChange }: Props) {
       ) : done ? (
         <div className="mission-feedback correct">
           <strong>✓ 探索完成</strong>
-          <span>已获得 {mission.exploreValue} 点探索值，新的知识节点已解锁。</span>
+          <span>这条线索已完成，可返回图谱查看探索进度。</span>
         </div>
       ) : null}
     </section>
