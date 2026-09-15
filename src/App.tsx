@@ -6,8 +6,8 @@ import { useExploration } from './state/ExplorationContext'
 
 type Scene = 'home' | 'explore'
 
-const MAP_HOLD_MS = 520
-const CURTAIN_MS = 1800
+const SWAP_MS = 360
+const CURTAIN_MS = 2000
 
 export function App() {
   const { session } = useExploration()
@@ -21,18 +21,14 @@ export function App() {
       return
     }
 
-    setScene('explore')
-    setShowCurtain(false)
+    setShowCurtain(true)
 
-    const startCurtain = window.setTimeout(() => setShowCurtain(true), MAP_HOLD_MS)
-    const endCurtain = window.setTimeout(
-      () => setShowCurtain(false),
-      MAP_HOLD_MS + CURTAIN_MS,
-    )
+    const swap = window.setTimeout(() => setScene('explore'), SWAP_MS)
+    const hide = window.setTimeout(() => setShowCurtain(false), CURTAIN_MS)
 
     return () => {
-      window.clearTimeout(startCurtain)
-      window.clearTimeout(endCurtain)
+      window.clearTimeout(swap)
+      window.clearTimeout(hide)
     }
   }, [session.started])
 
