@@ -1,3 +1,4 @@
+import { CompletionSummary } from '@/components/exploration/CompletionSummary'
 import { AchievementList } from '@/components/achievements/AchievementList'
 import { KioskButton } from '@/components/common/KioskButton'
 import { ProgressBar } from '@/components/exploration/ProgressBar'
@@ -32,6 +33,7 @@ export function ExplorePage() {
       {session.selectedNodeId ? <KnowledgeDetail /> : null}
 
       <AchievementList />
+      <CompletionSummary />
 
       <ul className="map-legend" aria-label="节点状态说明">
         <li>
