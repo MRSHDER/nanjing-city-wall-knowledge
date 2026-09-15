@@ -39,12 +39,12 @@ export function KnowledgeDetail() {
   const isInscription = node.id === 'node-inscription'
   const isLogistics = node.id === 'node-ming-logistics'
   const answeredCorrect = verdict === 'correct'
-  const canContinue = answeredCorrect || mission?.kind === 'read' || Boolean(mission && session.completedMissionIds.includes(mission.id))
-  const actionLabel = canContinue ? '继续探索' : '返回图谱'
+  const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
+  const canContinue = answeredCorrect || mission?.kind === 'read' || alreadyCompleted
   const rich = isInscription || isLogistics
 
-  function onAction() {
-    if (canContinue && mission && !session.completedMissionIds.includes(mission.id)) {
+  function onContinue() {
+    if (canContinue && mission && !alreadyCompleted) {
       finishMission(mission)
     }
     closeDetail()
@@ -52,6 +52,13 @@ export function KnowledgeDetail() {
 
   return (
     <>
+      <button
+        type="button"
+        className="knowledge-detail__backdrop"
+        aria-label="关闭知识详情，返回图谱"
+        onClick={closeDetail}
+      />
+
       {showBody ? (
         <aside
           id="node-intro"
@@ -67,6 +74,15 @@ export function KnowledgeDetail() {
         className={`knowledge-detail${rich ? ' is-rich' : ''}`}
         aria-label={`${node.title}知识详情`}
       >
+        <button
+          type="button"
+          className="knowledge-detail__close"
+          aria-label="关闭知识详情，返回图谱"
+          onClick={closeDetail}
+        >
+          ×
+        </button>
+
         <div className="knowledge-detail__eyebrow">
           知识节点 · {CATEGORY_LABEL[node.categoryId] ?? '南京城墙'}
         </div>
@@ -108,9 +124,11 @@ export function KnowledgeDetail() {
           <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
         ) : null}
 
-        <KioskButton className="knowledge-detail__action" onClick={onAction}>
-          {actionLabel}
-        </KioskButton>
+        {canContinue ? (
+          <KioskButton className="knowledge-detail__continue" onClick={onContinue}>
+            继续探索
+          </KioskButton>
+        ) : null}
       </aside>
     </>
   )
