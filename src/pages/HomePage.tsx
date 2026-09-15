@@ -35,10 +35,6 @@ export function HomePage() {
         <KioskButton className="home-cta" onClick={start}>
           开始探索 →
         </KioskButton>
-        <div className="home-foot">
-          <span>城墙知识探索 · 01</span>
-          <span>触屏开始体验</span>
-        </div>
       </div>
     </main>
   )

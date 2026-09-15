@@ -194,14 +194,6 @@
   border-color: #d4a017;
 }
 
-.home-foot {
-  display: flex;
-  gap: 28px;
-  margin-top: 48px;
-  color: #8a8174;
-  font-size: 15px;
-}
-
 .knowledge-detail h2 {
   font-size: 30px;
 }
