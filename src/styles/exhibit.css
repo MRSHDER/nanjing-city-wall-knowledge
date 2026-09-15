@@ -149,18 +149,18 @@
 .home-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 28px;
   color: var(--color-muted);
 }
 
-.home-brand__mark {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--color-available);
-  background:
-    linear-gradient(#d4a017, #d4a017) center/14px 2px no-repeat,
-    linear-gradient(#d4a017, #d4a017) center/2px 14px no-repeat;
+.home-brand__logo {
+  display: block;
+  width: 148px;
+  height: 32px;
+  flex: 0 0 auto;
+  color: #d8ccb0;
+  pointer-events: none;
 }
 
 .home-brand strong,

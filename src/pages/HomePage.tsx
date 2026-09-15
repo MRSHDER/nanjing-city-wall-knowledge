@@ -2,6 +2,24 @@ import { KioskButton } from '@/components/common/KioskButton'
 import { APP } from '@/config/app'
 import { useExploration } from '@/state/ExplorationContext'
 
+function MuseumLogo() {
+  return (
+    <svg
+      className="home-brand__logo"
+      viewBox="0 0 370 76"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <g fill="currentColor">
+        <polygon points="2,33 81,44 258,70 263,72 2,72" />
+        <polygon points="30,10 203,35 123,48 30,34" />
+        <polygon points="151,9 210,1 211,17 155,10" />
+        <polygon points="137,49 166,44 301,23 361,14 366,14 366,72 287,72 250,67 149,52 137,50" />
+      </g>
+    </svg>
+  )
+}
+
 export function HomePage() {
   const { start } = useExploration()
   const hero = `${import.meta.env.BASE_URL}images/home-hero.jpg`
@@ -17,7 +35,7 @@ export function HomePage() {
     >
       <div className="home-content">
         <div className="home-brand">
-          <span className="home-brand__mark" aria-hidden />
+          <MuseumLogo />
           <div>
             <strong>{APP.museum}</strong>
             <small>NANJING CITY WALL MUSEUM</small>
