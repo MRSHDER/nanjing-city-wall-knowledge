@@ -43,7 +43,7 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   margin-bottom: 10px; color: var(--color-available); font-family: sans-serif;
   font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
 }
-.knowledge-detail h2 { margin: 0 0 12px; font-size: 38px; }
+.knowledge-detail h2 { margin: 0; font-size: 38px; }
 .knowledge-detail > .knowledge-detail__summary, .knowledge-detail__body p {
   line-height: 1.85; color: var(--color-muted);
 }
@@ -82,3 +82,20 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 @keyframes node-pulse { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.34; } }
 @keyframes choice-fade { from { opacity: 0.72; } to { opacity: 1; } }
 .map-node--available .map-node__glow { animation: node-pulse 1.8s ease-in-out infinite; }
+
+.knowledge-detail .intro-toggle {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(212, 160, 23, 0.45);
+  color: var(--color-available);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+.knowledge-detail .intro-toggle.is-open {
+  background: rgba(212, 160, 23, 0.16);
+  color: var(--color-available);
+  border-color: var(--color-available);
+}

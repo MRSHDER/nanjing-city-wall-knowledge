@@ -54,21 +54,29 @@ export function KnowledgeDetail() {
       <div className="knowledge-detail__eyebrow">
         知识节点 · {CATEGORY_LABEL[node.categoryId] ?? '南京城墙'}
       </div>
-      <h2>{node.title}</h2>
+      <div className="knowledge-detail__title-row">
+        <h2>{node.title}</h2>
+        <button
+          type="button"
+          className={`intro-toggle${showBody ? ' is-open' : ''}`}
+          aria-expanded={showBody}
+          aria-controls="node-intro"
+          aria-label={showBody ? '收起简介' : '阅读简介'}
+          onClick={() => setShowBody((open) => !open)}
+        >
+          <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+            {showBody ? <path d="M6 14 L12 8 L18 14" /> : <path d="M6 10 L12 16 L18 10" />}
+          </svg>
+          <span>简介</span>
+        </button>
+      </div>
       <p className="knowledge-detail__summary">{node.summary}</p>
       <NodeImages key={node.id} imageIds={node.imageIds} />
       {showBody ? (
-        <div className="knowledge-detail__body">
+        <div id="node-intro" className="knowledge-detail__body">
           <p>{node.content}</p>
-          <button type="button" className="text-link" onClick={() => setShowBody(false)}>
-            收起简介
-          </button>
         </div>
-      ) : (
-        <button type="button" className="text-link" onClick={() => setShowBody(true)}>
-          阅读简介
-        </button>
-      )}
+      ) : null}
 
       {isInscription ? (
         <BrickInscriptionCard
