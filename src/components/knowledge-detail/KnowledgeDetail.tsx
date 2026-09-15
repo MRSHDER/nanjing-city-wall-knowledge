@@ -41,6 +41,7 @@ export function KnowledgeDetail() {
   const answeredCorrect = verdict === 'correct'
   const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
   const canContinue = answeredCorrect || mission?.kind === 'read' || alreadyCompleted
+  const correctChoice = mission?.choices?.find((choice) => choice.correct)
   const rich = isInscription || isLogistics
 
   function onContinue() {
@@ -63,9 +64,15 @@ export function KnowledgeDetail() {
         <aside
           id="node-intro"
           className="knowledge-detail__intro-pane"
-          aria-label={`${node.title}简介`}
+          aria-label={`${node.title}答题线索`}
         >
-          <div className="knowledge-detail__intro-kicker">节点简介</div>
+          <div className="knowledge-detail__intro-kicker">答题线索</div>
+          {correctChoice ? (
+            <div className="knowledge-detail__clue-answer">
+              <span>正确答案</span>
+              <strong>{correctChoice.id.toUpperCase()} · {correctChoice.label}</strong>
+            </div>
+          ) : null}
           <p>{node.content}</p>
         </aside>
       ) : null}
@@ -93,13 +100,13 @@ export function KnowledgeDetail() {
             className={`intro-toggle${showBody ? ' is-open' : ''}`}
             aria-expanded={showBody}
             aria-controls="node-intro"
-            aria-label={showBody ? '收起简介' : '阅读简介'}
+            aria-label={showBody ? '收起线索' : '查看线索'}
             onClick={() => setShowBody((open) => !open)}
           >
             <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
               {showBody ? <path d="M14 6 L8 12 L14 18" /> : <path d="M6 10 L12 16 L18 10" />}
             </svg>
-            <span>简介</span>
+            <span>线索</span>
           </button>
         </div>
         <p className="knowledge-detail__summary">{node.summary}</p>
