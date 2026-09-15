@@ -41,6 +41,7 @@ export function KnowledgeDetail() {
   const answeredCorrect = verdict === 'correct'
   const canContinue = answeredCorrect || mission?.kind === 'read' || Boolean(mission && session.completedMissionIds.includes(mission.id))
   const actionLabel = canContinue ? '继续探索' : '返回图谱'
+  const rich = isInscription || isLogistics
 
   function onAction() {
     if (canContinue && mission && !session.completedMissionIds.includes(mission.id)) {
@@ -50,54 +51,67 @@ export function KnowledgeDetail() {
   }
 
   return (
-    <aside className="knowledge-detail" aria-label={`${node.title}知识详情`}>
-      <div className="knowledge-detail__eyebrow">
-        知识节点 · {CATEGORY_LABEL[node.categoryId] ?? '南京城墙'}
-      </div>
-      <div className="knowledge-detail__title-row">
-        <h2>{node.title}</h2>
-        <button
-          type="button"
-          className={`intro-toggle${showBody ? ' is-open' : ''}`}
-          aria-expanded={showBody}
-          aria-controls="node-intro"
-          aria-label={showBody ? '收起简介' : '阅读简介'}
-          onClick={() => setShowBody((open) => !open)}
-        >
-          <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
-            {showBody ? <path d="M6 14 L12 8 L18 14" /> : <path d="M6 10 L12 16 L18 10" />}
-          </svg>
-          <span>简介</span>
-        </button>
-      </div>
-      <p className="knowledge-detail__summary">{node.summary}</p>
-      <NodeImages key={node.id} imageIds={node.imageIds} />
+    <>
       {showBody ? (
-        <div id="node-intro" className="knowledge-detail__body">
+        <aside
+          id="node-intro"
+          className="knowledge-detail__intro-pane"
+          aria-label={`${node.title}简介`}
+        >
+          <div className="knowledge-detail__intro-kicker">节点简介</div>
           <p>{node.content}</p>
+        </aside>
+      ) : null}
+
+      <aside
+        className={`knowledge-detail${rich ? ' is-rich' : ''}`}
+        aria-label={`${node.title}知识详情`}
+      >
+        <div className="knowledge-detail__eyebrow">
+          知识节点 · {CATEGORY_LABEL[node.categoryId] ?? '南京城墙'}
         </div>
-      ) : null}
+        <div className="knowledge-detail__title-row">
+          <h2>{node.title}</h2>
+          <button
+            type="button"
+            className={`intro-toggle${showBody ? ' is-open' : ''}`}
+            aria-expanded={showBody}
+            aria-controls="node-intro"
+            aria-label={showBody ? '收起简介' : '阅读简介'}
+            onClick={() => setShowBody((open) => !open)}
+          >
+            <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+              {showBody ? <path d="M14 6 L8 12 L14 18" /> : <path d="M6 10 L12 16 L18 10" />}
+            </svg>
+            <span>简介</span>
+          </button>
+        </div>
+        <p className="knowledge-detail__summary">{node.summary}</p>
+        <NodeImages key={node.id} imageIds={node.imageIds} />
 
-      {isInscription ? (
-        <BrickInscriptionCard
-          onTrace={() =>
-            document.querySelector('.inscription-quest')?.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-            })
-          }
-        />
-      ) : null}
+        {isInscription ? (
+          <BrickInscriptionCard
+            onTrace={() =>
+              document.querySelector('.inscription-quest')?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              })
+            }
+          />
+        ) : null}
 
-      {isLogistics ? <LogisticsPath /> : null}
+        {isLogistics ? <LogisticsPath /> : null}
 
-      {isInscription && mission ? (
-        <InscriptionQuest key={mission.id} mission={mission} />
-      ) : mission ? (
-        <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
-      ) : null}
+        {isInscription && mission ? (
+          <InscriptionQuest key={mission.id} mission={mission} />
+        ) : mission ? (
+          <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
+        ) : null}
 
-      <KioskButton onClick={onAction}>{actionLabel}</KioskButton>
-    </aside>
+        <KioskButton className="knowledge-detail__action" onClick={onAction}>
+          {actionLabel}
+        </KioskButton>
+      </aside>
+    </>
   )
 }

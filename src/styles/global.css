@@ -35,24 +35,43 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 .knowledge-map text { font-family: 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', serif; }
 .knowledge-detail {
   position: absolute; z-index: 10; top: 104px; right: 32px; bottom: 32px;
-  width: min(560px, 38vw); overflow: auto; padding: 34px;
+  width: min(560px, 38vw); overflow: hidden; padding: 28px 30px 24px;
+  display: flex; flex-direction: column;
   border: 1px solid rgba(212, 160, 23, 0.45); border-radius: 18px;
   background: rgba(31, 26, 20, 0.97); box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+}
+.knowledge-detail.is-rich { overflow: auto; }
+.knowledge-detail__intro-pane {
+  position: absolute; z-index: 9; top: 104px; bottom: auto;
+  right: calc(32px + min(560px, 38vw) + 18px);
+  width: min(500px, 34vw); max-height: calc(100vh - 136px);
+  overflow: auto; padding: 28px 32px;
+  border: 1px solid rgba(212, 160, 23, 0.3); border-radius: 18px;
+  background: rgba(18, 14, 10, 0.72); backdrop-filter: blur(14px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.38);
+}
+.knowledge-detail__intro-kicker {
+  margin-bottom: 14px; color: var(--color-available); font-family: sans-serif;
+  font-size: 13px; letter-spacing: 0.14em;
+}
+.knowledge-detail__intro-pane p {
+  margin: 0; font-size: 20px; line-height: 1.8; color: var(--color-muted);
 }
 .knowledge-detail__eyebrow {
   margin-bottom: 10px; color: var(--color-available); font-family: sans-serif;
   font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
 }
-.knowledge-detail h2 { margin: 0; font-size: 38px; }
+.knowledge-detail h2 { margin: 0; font-size: 32px; }
 .knowledge-detail > .knowledge-detail__summary, .knowledge-detail__body p {
-  line-height: 1.85; color: var(--color-muted);
+  line-height: 1.7; color: var(--color-muted);
 }
-.knowledge-detail__summary { font-size: 21px; }
-.knowledge-detail .mission-panel { margin: 28px 0; }
+.knowledge-detail__summary { font-size: 20px; margin: 0 0 4px; }
+.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 1 1 auto; min-height: 0; }
+.knowledge-detail__action { margin-top: auto; width: 100%; flex: 0 0 auto; }
 .mission-kicker { margin-bottom: 8px; font-size: 15px; letter-spacing: 0.16em; color: var(--color-available); }
 .mission-panel h3 { margin: 0 0 10px; font-size: 26px; }
 .mission-panel p { line-height: 1.7; }
-.mission-choices { display: grid; gap: 12px; margin: 18px 0; }
+.mission-choices { display: grid; gap: 10px; margin: 12px 0; }
 .mission-choice {
   width: 100%; display: flex; align-items: center; gap: 14px; text-align: left;
   background: rgba(255, 255, 255, 0.055); border-color: rgba(203, 184, 146, 0.28); color: var(--color-text);
