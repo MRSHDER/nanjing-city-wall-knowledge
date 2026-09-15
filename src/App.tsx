@@ -6,6 +6,8 @@ import { useExploration } from './state/ExplorationContext'
 
 type Scene = 'home' | 'transit' | 'explore'
 
+const CURTAIN_MS = 1600
+
 export function App() {
   const { session } = useExploration()
   const [scene, setScene] = useState<Scene>('home')
@@ -17,7 +19,7 @@ export function App() {
     }
 
     setScene('transit')
-    const timer = window.setTimeout(() => setScene('explore'), 2400)
+    const timer = window.setTimeout(() => setScene('explore'), CURTAIN_MS)
     return () => window.clearTimeout(timer)
   }, [session.started])
 
