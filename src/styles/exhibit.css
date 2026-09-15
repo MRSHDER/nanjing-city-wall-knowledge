@@ -247,6 +247,7 @@
   align-items: center;
   gap: 12px;
   margin: 0 0 10px;
+  padding-right: 150px;
 }
 
 .knowledge-detail__title-row h2 {
@@ -256,17 +257,20 @@
 }
 
 .intro-toggle {
+  position: absolute;
+  top: 84px;
+  right: 84px;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   width: auto;
-  min-width: 48px;
+  min-width: 92px;
   min-height: 48px;
   padding: 0 14px;
   border-radius: 999px;
-  background: transparent;
+  background: rgba(20, 16, 12, 0.7);
   border: 1px solid rgba(212, 160, 23, 0.42);
   color: var(--color-available);
   font-size: 14px;
