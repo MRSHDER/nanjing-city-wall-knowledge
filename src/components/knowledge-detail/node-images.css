@@ -1,0 +1,9 @@
+.node-photo { margin: 12px 0; }
+.node-photo__open { display: block; width: 100%; padding: 8px; background: #14110d; color: var(--color-available); }
+.node-photo__open img { display: block; width: 100%; height: clamp(120px, 20vh, 220px); object-fit: contain; }
+.node-photo__open span { display: block; padding: 10px 0 2px; }
+.node-photo figcaption { margin-top: 6px; color: var(--color-muted); font-size: 14px; }
+.node-photo__dialog { width: min(1100px, 94vw); max-height: 94vh; overflow: auto; border: 1px solid #d4a017; border-radius: 16px; background: #1f1a14; color: var(--color-text); }
+.node-photo__dialog::backdrop { background: rgb(0 0 0 / 80%); }
+.node-photo__dialog form { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+.node-photo__dialog img { display: block; width: 100%; max-height: 70vh; object-fit: contain; }
