@@ -167,7 +167,7 @@ export const catalog: KnowledgeCatalog = {
       title: '城砖铭文',
       summary: '砖上的名字，把六百多年前的工程责任留下来。',
       content: '南京明城墙城砖上的铭文是重要的历史信息载体。部分铭文记录府、州、县以及基层人员、窑匠和造砖人夫等信息，可以帮助研究明初城砖生产和责任管理。博物馆也设有城砖铭文查询相关展示，让观众从一块砖认识它背后的生产者。',
-      imageIds: [],
+      imageIds: ['liudehua-brick'],
       categoryId: 'cat-material',
       periodId: 'period-ming-hongwu',
       tagIds: ['tag-craft', 'tag-inscription'],
