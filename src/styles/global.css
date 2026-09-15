@@ -42,7 +42,7 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 }
 .knowledge-detail {
   position: absolute; z-index: 10; top: 104px; right: 32px; bottom: 32px;
-  width: min(560px, 38vw); overflow: hidden; padding: 28px 30px 24px;
+  width: min(560px, 38vw); overflow: auto; padding: 28px 30px 24px;
   display: flex; flex-direction: column;
   border: 1px solid rgba(212, 160, 23, 0.45); border-radius: 18px;
   background: rgba(31, 26, 20, 0.97); box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
@@ -102,12 +102,12 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   line-height: 1.7; color: var(--color-muted);
 }
 .knowledge-detail__summary { font-size: 20px; margin: 0 0 4px; }
-.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 1 1 auto; min-height: 0; }
+.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 0 0 auto; min-height: 0; }
 .knowledge-detail__continue {
-  align-self: flex-end;
+  align-self: stretch;
   flex: 0 0 auto;
   min-width: 220px;
-  margin-top: 4px;
+  margin-top: 14px;
 }
 .mission-kicker { margin-bottom: 8px; font-size: 15px; letter-spacing: 0.16em; color: var(--color-available); }
 .mission-panel h3 { margin: 0 0 10px; font-size: 26px; }
