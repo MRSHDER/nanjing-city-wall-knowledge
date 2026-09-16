@@ -79,7 +79,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: [],
       relatedNodeIds: ['node-four-walls', 'node-city-gate', 'node-brick', 'node-heritage'],
       missionId: 'mission-ming-wall',
-      position: { x: 360, y: 470 },
+      position: { x: 340, y: 520 },
       startsAvailable: true,
     },
     {
@@ -96,7 +96,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: [],
       relatedNodeIds: ['node-ming-wall', 'node-city-gate', 'node-engineering'],
       missionId: 'mission-four-walls',
-      position: { x: 620, y: 300 },
+      position: { x: 590, y: 430 },
     },
     {
       id: 'node-engineering',
@@ -112,7 +112,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: [],
       relatedNodeIds: ['node-four-walls', 'node-brick', 'node-inscription'],
       missionId: 'mission-engineering',
-      position: { x: 920, y: 220 },
+      position: { x: 870, y: 300 },
     },
     {
       id: 'node-city-gate',
@@ -128,7 +128,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: [],
       relatedNodeIds: ['node-four-walls', 'node-wengcheng', 'node-ming-wall'],
       missionId: 'mission-city-gate',
-      position: { x: 610, y: 610 },
+      position: { x: 760, y: 590 },
     },
     {
       id: 'node-wengcheng',
@@ -144,7 +144,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: [],
       relatedNodeIds: ['node-city-gate', 'node-brick'],
       missionId: 'mission-wengcheng',
-      position: { x: 910, y: 700 },
+      position: { x: 980, y: 640 },
     },
     {
       id: 'node-brick',
@@ -160,7 +160,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: ['art-brick'],
       relatedNodeIds: ['node-wengcheng', 'node-inscription', 'node-engineering'],
       missionId: 'mission-brick',
-      position: { x: 1240, y: 660 },
+      position: { x: 1210, y: 590 },
     },
     {
       id: 'node-inscription',
@@ -176,7 +176,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: ['art-brick'],
       relatedNodeIds: ['node-brick', 'node-duty-chain', 'node-engineering'],
       missionId: 'mission-inscription',
-      position: { x: 1450, y: 555 },
+      position: { x: 1390, y: 500 },
     },
     {
       id: 'node-duty-chain',
@@ -192,7 +192,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: ['art-brick'],
       relatedNodeIds: ['node-inscription', 'node-brick-origin'],
       missionId: 'mission-duty-chain',
-      position: { x: 1580, y: 360 },
+      position: { x: 1540, y: 395 },
     },
     {
       id: 'node-brick-origin',
@@ -208,7 +208,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: ['art-brick'],
       relatedNodeIds: ['node-duty-chain', 'node-ming-logistics'],
       missionId: 'mission-brick-origin',
-      position: { x: 1370, y: 215 },
+      position: { x: 1390, y: 300 },
     },
     {
       id: 'node-ming-logistics',
@@ -224,7 +224,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: ['art-brick'],
       relatedNodeIds: ['node-brick-origin', 'node-brick'],
       missionId: 'mission-ming-logistics',
-      position: { x: 1645, y: 250 },
+      position: { x: 1640, y: 300 },
     },
     {
       id: 'node-heritage',
@@ -240,7 +240,7 @@ export const catalog: KnowledgeCatalog = {
       artifactIds: [],
       relatedNodeIds: ['node-ming-wall', 'node-inscription'],
       missionId: 'mission-heritage',
-      position: { x: 430, y: 720 },
+      position: { x: 430, y: 700 },
     },
   ],
   relations: [
@@ -258,3 +258,4 @@ export const catalog: KnowledgeCatalog = {
     { id: 'rel-inscription-heritage', from: 'node-inscription', to: 'node-heritage', kind: 'related-to', label: '历史留下的声音' },
   ],
 }
+
