@@ -112,16 +112,7 @@ export function KnowledgeDetail() {
         <p className="knowledge-detail__summary">{node.summary}</p>
         <NodeImages key={node.id} imageIds={node.imageIds} />
 
-        {isInscription ? (
-          <BrickInscriptionCard
-            onTrace={() =>
-              document.querySelector('.inscription-quest')?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-              })
-            }
-          />
-        ) : null}
+        {isInscription ? <BrickInscriptionCard /> : null}
 
         {isLogistics ? <LogisticsPath /> : null}
 
