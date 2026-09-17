@@ -39,18 +39,19 @@
 
 .logistics-path__steps {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin: 12px 0 16px;
+  margin: 10px 0 0;
 }
 
 .logistics-step {
   width: 100%;
   min-width: 0;
+  min-height: 56px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 10px;
+  padding: 10px 14px;
   text-align: left;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(203, 184, 146, 0.25);
@@ -72,15 +73,6 @@
   color: var(--color-text);
 }
 
-.logistics-path__text {
-  margin: 0;
-  color: var(--color-muted);
-  line-height: 1.7;
-}
-
-.logistics-path__text strong {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--color-text);
-  font-size: 20px;
+.logistics-path__steps .logistics-step:last-child {
+  grid-column: 1 / -1;
 }

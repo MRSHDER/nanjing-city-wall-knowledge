@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const STAGES = [
   { id: 'kiln', title: '砖窑', text: '窑址多靠近河流。泥土、柴薪和成品砖都要便于装船，所以产地往往沿着水系铺开。' },
@@ -8,9 +8,19 @@ const STAGES = [
   { id: 'wall', title: '城墙', text: '砖砌入墙体后，侧面铭文常常被压在缝里。今天能读到的，是偶尔露出或被征集保存的那一部分。' },
 ] as const
 
-export function LogisticsPath() {
-  const [activeId, setActiveId] = useState<(typeof STAGES)[number]['id']>('kiln')
+export type LogisticsStage = (typeof STAGES)[number]
+
+export function LogisticsPath({
+  onStageChange,
+}: {
+  onStageChange?: (stage: LogisticsStage) => void
+}) {
+  const [activeId, setActiveId] = useState<LogisticsStage['id']>('kiln')
   const active = STAGES.find((stage) => stage.id === activeId) ?? STAGES[0]
+
+  useEffect(() => {
+    onStageChange?.(active)
+  }, [active, onStageChange])
 
   return (
     <section className="logistics-path" aria-label="大明物流路径">
@@ -21,6 +31,7 @@ export function LogisticsPath() {
             key={stage.id}
             type="button"
             className={stage.id === activeId ? 'logistics-step selected' : 'logistics-step'}
+            aria-pressed={stage.id === activeId}
             onClick={() => setActiveId(stage.id)}
           >
             <b>0{index + 1}</b>
@@ -28,10 +39,6 @@ export function LogisticsPath() {
           </button>
         ))}
       </div>
-      <p className="logistics-path__text">
-        <strong>{active.title}</strong>
-        {active.text}
-      </p>
     </section>
   )
 }
