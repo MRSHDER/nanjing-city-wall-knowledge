@@ -5,7 +5,7 @@ import { KioskButton } from '../common/KioskButton'
 import { MissionPanel, type MissionVerdict } from '../missions/MissionPanel'
 import { BrickInscriptionCard } from './BrickInscriptionCard'
 import { InscriptionQuest } from './InscriptionQuest'
-import { LogisticsPath } from './LogisticsPath'
+import { LogisticsPath, type LogisticsStage } from './LogisticsPath'
 import { NodeImages } from './NodeImages'
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -20,14 +20,20 @@ export function KnowledgeDetail() {
   const { session, closeDetail, finishMission } = useExploration()
   const [verdict, setVerdict] = useState<MissionVerdict>('idle')
   const [showBody, setShowBody] = useState(false)
+  const [logisticsStage, setLogisticsStage] = useState<LogisticsStage | null>(null)
 
   useEffect(() => {
     setVerdict('idle')
     setShowBody(false)
+    setLogisticsStage(null)
   }, [session.selectedNodeId])
 
   const handleVerdict = useCallback((next: MissionVerdict) => {
     setVerdict(next)
+  }, [])
+
+  const handleLogisticsStage = useCallback((stage: LogisticsStage) => {
+    setLogisticsStage(stage)
   }, [])
 
   if (!session.selectedNodeId) return null
@@ -38,11 +44,12 @@ export function KnowledgeDetail() {
 
   const isInscription = node.id === 'node-inscription'
   const isLogistics = node.id === 'node-ming-logistics'
+  const isRead = mission?.kind === 'read'
   const answeredCorrect = verdict === 'correct'
   const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
-  const canContinue = answeredCorrect || mission?.kind === 'read' || alreadyCompleted
+  const canContinue = answeredCorrect || isRead || alreadyCompleted
   const correctChoice = mission?.choices?.find((choice) => choice.correct)
-  const rich = isInscription || isLogistics
+  const rich = isInscription
 
   function onContinue() {
     if (canContinue && mission && !alreadyCompleted) {
@@ -50,6 +57,9 @@ export function KnowledgeDetail() {
     }
     closeDetail()
   }
+
+  const showCluePane = showBody && !isRead
+  const showStagePane = isLogistics && !showCluePane && logisticsStage
 
   return (
     <>
@@ -60,7 +70,7 @@ export function KnowledgeDetail() {
         onClick={closeDetail}
       />
 
-      {showBody ? (
+      {showCluePane ? (
         <aside
           id="node-intro"
           className="knowledge-detail__intro-pane"
@@ -70,10 +80,23 @@ export function KnowledgeDetail() {
           {correctChoice ? (
             <div className="knowledge-detail__clue-answer">
               <span>正确答案</span>
-              <strong>{correctChoice.id.toUpperCase()} · {correctChoice.label}</strong>
+              <strong>
+                {correctChoice.id.toUpperCase()} · {correctChoice.label}
+              </strong>
             </div>
           ) : null}
           <p>{node.content}</p>
+        </aside>
+      ) : null}
+
+      {showStagePane && logisticsStage ? (
+        <aside
+          className="knowledge-detail__intro-pane knowledge-detail__stage-pane"
+          aria-label={`${logisticsStage.title}说明`}
+        >
+          <div className="knowledge-detail__intro-kicker">运输环节</div>
+          <h3>{logisticsStage.title}</h3>
+          <p>{logisticsStage.text}</p>
         </aside>
       ) : null}
 
@@ -95,31 +118,39 @@ export function KnowledgeDetail() {
         </div>
         <div className="knowledge-detail__title-row">
           <h2>{node.title}</h2>
-          <button
-            type="button"
-            className={`intro-toggle${showBody ? ' is-open' : ''}`}
-            aria-expanded={showBody}
-            aria-controls="node-intro"
-            aria-label={showBody ? '收起线索' : '查看线索'}
-            onClick={() => setShowBody((open) => !open)}
-          >
-            <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
-              {showBody ? <path d="M14 6 L8 12 L14 18" /> : <path d="M6 10 L12 16 L18 10" />}
-            </svg>
-            <span>线索</span>
-          </button>
+          {!isRead ? (
+            <button
+              type="button"
+              className={`intro-toggle${showBody ? ' is-open' : ''}`}
+              aria-expanded={showBody}
+              aria-controls="node-intro"
+              aria-label={showBody ? '收起线索' : '查看线索'}
+              onClick={() => setShowBody((open) => !open)}
+            >
+              <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+                {showBody ? <path d="M14 6 L8 12 L14 18" /> : <path d="M6 10 L12 16 L18 10" />}
+              </svg>
+              <span>线索</span>
+            </button>
+          ) : null}
         </div>
         <p className="knowledge-detail__summary">{node.summary}</p>
         <NodeImages key={node.id} imageIds={node.imageIds} />
 
         {isInscription ? <BrickInscriptionCard /> : null}
 
-        {isLogistics ? <LogisticsPath /> : null}
+        {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
 
         {isInscription && mission ? (
           <InscriptionQuest key={mission.id} mission={mission} />
         ) : mission ? (
           <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
+        ) : null}
+
+        {isRead ? (
+          <div id="node-intro" className="knowledge-detail__reading">
+            <p>{node.content}</p>
+          </div>
         ) : null}
 
         {canContinue ? (

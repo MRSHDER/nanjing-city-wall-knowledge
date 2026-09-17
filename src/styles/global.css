@@ -42,7 +42,7 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 }
 .knowledge-detail {
   position: absolute; z-index: 10; top: 104px; right: 32px; bottom: 32px;
-  width: min(560px, 38vw); overflow: auto; padding: 28px 30px 24px;
+  width: min(560px, 38vw); overflow: hidden; padding: 28px 30px 24px;
   display: flex; flex-direction: column;
   border: 1px solid rgba(212, 160, 23, 0.45); border-radius: 18px;
   background: rgba(31, 26, 20, 0.97); box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
@@ -70,6 +70,11 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 .knowledge-detail__intro-kicker {
   margin-bottom: 14px; color: var(--color-available); font-family: sans-serif;
   font-size: 13px; letter-spacing: 0.14em;
+}
+.knowledge-detail__stage-pane h3 {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 600;
 }
 .knowledge-detail__clue-answer {
   display: grid; gap: 8px;
@@ -102,12 +107,25 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   line-height: 1.7; color: var(--color-muted);
 }
 .knowledge-detail__summary { font-size: 20px; margin: 0 0 4px; }
-.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 0 0 auto; min-height: 0; }
+.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 1 1 auto; min-height: 0; }
+.knowledge-detail__reading {
+  margin: 4px 0 16px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(212, 160, 23, 0.18);
+}
+.knowledge-detail__reading p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.8;
+  color: var(--color-muted);
+}
 .knowledge-detail__continue {
   align-self: stretch;
   flex: 0 0 auto;
   min-width: 220px;
-  margin-top: 14px;
+  margin-top: auto;
 }
 .mission-kicker { margin-bottom: 8px; font-size: 15px; letter-spacing: 0.16em; color: var(--color-available); }
 .mission-panel h3 { margin: 0 0 10px; font-size: 26px; }
@@ -134,8 +152,8 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 }
 .mission-success { display: grid; gap: 6px; padding: 16px; margin: 18px 0; }
 .inscription-quest, .logistics-path {
-  margin: 22px 0; padding: 18px; border: 1px solid rgba(212, 160, 23, 0.28);
-  border-radius: 14px; background: rgba(0, 0, 0, 0.16);
+  margin: 12px 0; padding: 14px 16px; border: 1px solid rgba(212, 160, 23, 0.28);
+  border-radius: 14px; background: rgba(0, 0, 0, 0.16); flex: 0 0 auto;
 }
 .role-match { display: grid; gap: 16px; margin: 16px 0; }
 .role-match__duties { display: grid; gap: 8px; }
