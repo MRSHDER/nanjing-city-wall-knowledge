@@ -25,6 +25,7 @@
   border: 1px solid rgba(203, 184, 146, 0.28);
   border-radius: 10px;
   color: var(--color-available);
+  transition: border-color var(--dur-press) linear, box-shadow var(--dur-press) linear;
 }
 
 .brick-observation__frame img {
@@ -39,22 +40,17 @@
   padding: 10px 0 2px;
   font-size: 16px;
   letter-spacing: 0.08em;
+  transition: color var(--dur-press) linear;
 }
 
+/* 已观察：边框短暂提亮 + 一圈很轻的描边。照片本身是视觉主体，不做扫光。 */
 .brick-observation__frame.is-observed {
   border-color: var(--color-available);
-  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.35), 0 0 18px rgba(212, 160, 23, 0.25);
-  animation: brick-observe-flash 0.7s ease-out;
+  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.32);
 }
 
 .brick-observation__frame.is-observed .brick-observation__action {
   color: var(--color-completed);
-}
-
-@keyframes brick-observe-flash {
-  0% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0); }
-  45% { box-shadow: 0 0 0 5px rgba(212, 160, 23, 0.5), 0 0 24px rgba(212, 160, 23, 0.45); }
-  100% { box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.35), 0 0 18px rgba(212, 160, 23, 0.25); }
 }
 
 .brick-observation__finding {

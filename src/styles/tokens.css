@@ -14,4 +14,12 @@
   --tap-min: 64px;
   --font-min: 18px;
   --font-title: 32px;
+
+  /* 动效令牌：统一缓动与时长。按压要快、内容出现要稳、完成反馈可以稍长。 */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-press: cubic-bezier(0.33, 0, 0.2, 1);
+  --dur-press: 100ms;
+  --dur-press-in: 60ms;
+  --dur-ui: 240ms;
+  --dur-major: 480ms;
 }

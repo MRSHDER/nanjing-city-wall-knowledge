@@ -1,3 +1,4 @@
+/* 时长由 App.tsx 的 CURTAIN_MS 通过 --curtain-ms 注入，保证 JS 撤幕与 CSS 播放同步 */
 .enter-curtain {
   position: absolute;
   inset: 0;
@@ -5,7 +6,7 @@
   display: grid;
   place-items: center;
   background: #0c0a08;
-  animation: curtain-in 2s ease both;
+  animation: curtain-in var(--curtain-ms, 1000ms) ease both;
   pointer-events: auto;
 }
 
@@ -14,7 +15,7 @@
   color: #e8dcc4;
   letter-spacing: 0.28em;
   font-size: 28px;
-  animation: curtain-line 2s ease both;
+  animation: curtain-line var(--curtain-ms, 1000ms) ease both;
 }
 
 @keyframes curtain-in {

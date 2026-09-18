@@ -15,9 +15,23 @@ button {
   min-height: var(--tap-min); min-width: var(--tap-min); padding: 12px 24px;
   font: inherit; font-size: 20px; border: 1px solid rgba(212, 160, 23, 0.45);
   border-radius: 10px; background: var(--color-available); color: #1b1712; cursor: pointer;
+  touch-action: manipulation;
+  /* 按下立刻给反馈（60ms），松开再平滑回位（100ms） */
+  transition: transform var(--dur-press) var(--ease-press),
+    background-color var(--dur-press) linear, border-color var(--dur-press) linear,
+    color var(--dur-press) linear, box-shadow var(--dur-press) linear,
+    opacity var(--dur-ui) var(--ease-out);
+}
+button:not(:disabled):active {
+  transform: scale(0.98);
+  transition-duration: var(--dur-press-in);
 }
 button:disabled { opacity: 0.45; cursor: default; }
 button:focus-visible { outline: 3px solid var(--color-discovered); outline-offset: 3px; }
+/* 鼠标 hover 只作为桌面辅助，不承载关键提示；触屏不启用，避免点击后 hover 残留 */
+@media (hover: hover) {
+  button:not(:disabled):hover { border-color: rgba(212, 160, 23, 0.82); }
+}
 .kiosk-shell {
   position: relative; width: 100vw; height: 100vh; overflow: hidden;
   background: radial-gradient(circle at 52% 42%, rgba(138, 115, 72, 0.14), transparent 42%),
@@ -39,6 +53,45 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   min-width: 0; min-height: 0; padding: 0;
   border: 0; border-radius: 0;
   background: rgba(0, 0, 0, 0.2); color: inherit;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+/* 背景层是整屏点击区，不做缩放按压，保持不可见的“无反馈”状态 */
+.knowledge-detail__backdrop:not(:disabled):active { transform: none; }
+@media (hover: hover) {
+  .knowledge-detail__backdrop:not(:disabled):hover {
+    border-color: transparent;
+    background: rgba(0, 0, 0, 0.26);
+  }
+}
+
+/* 详情页进入：先知识内容、后任务区域，错峰 90ms；只用 opacity + 8px 位移 */
+@keyframes ui-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ui-pop {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.knowledge-detail__header,
+.knowledge-detail__scroll {
+  animation: ui-rise var(--dur-ui) var(--ease-out) both;
+}
+.knowledge-detail__scroll > .mission-panel,
+.knowledge-detail__scroll > .inscription-quest,
+.knowledge-detail__scroll > .brick-observation {
+  animation: ui-rise var(--dur-ui) var(--ease-out) 90ms both;
+}
+/* 答题反馈 / 观察反馈：淡入上行，避免生硬跳变 */
+.mission-feedback,
+.mission-success,
+.brick-observation__finding {
+  animation: ui-pop var(--dur-ui) var(--ease-out) both;
+}
+/* 弹窗类：只做 0.98 → 1 的极轻微缩放 */
+.node-photo__dialog[open],
+.completion-summary[open] {
+  animation: ui-pop var(--dur-ui) var(--ease-out) both;
 }
 .knowledge-detail {
   position: absolute; z-index: 10; top: 104px; right: 32px; bottom: 32px;
@@ -183,6 +236,35 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 @keyframes node-pulse { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.13; } }
 @keyframes choice-fade { from { opacity: 0.72; } to { opacity: 1; } }
 .map-node--available .map-node__glow { animation: node-pulse 1.8s ease-in-out infinite; }
+
+/* 节点可点性反馈：按下时整组圆环轻微收缩（fill-box 让缩放围绕节点自身中心） */
+.map-node circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-press) var(--ease-press);
+}
+.map-node:not(.map-node--locked):active circle {
+  transform: scale(0.96);
+  transition-duration: var(--dur-press-in);
+}
+
+/* 降低动态偏好：去掉位移、呼吸与非必要状态动画，只保留即时状态变化 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .map-node--available .map-node__glow {
+    animation: none !important;
+    opacity: 0.1 !important;
+  }
+  .map-node:not(.map-node--locked):active circle { transform: none; }
+  button:not(:disabled):active { transform: none; }
+}
 
 .knowledge-detail .intro-toggle {
   min-width: 48px;
