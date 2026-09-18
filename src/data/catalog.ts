@@ -181,7 +181,7 @@ export const catalog: KnowledgeCatalog = {
     {
       id: 'node-duty-chain',
       title: '责任链',
-      summary: '从府县官员到窑匠、人夫，一块砖记下层层可追溯的责任。',
+      summary: '一块城砖的铭文里，常常同时出现几个不同身份的名字。',
       content: '南京明城墙砖文常见一种多层责任记录：府级提调官与司吏、县级提调官与司吏，再到总甲、甲首、小甲，最后是窑匠和造砖人夫。南京城墙博物馆城砖展区即以都昌县等实物说明这种责任制。它来自中国古代“物勒工名”传统：产品上留下责任人姓名，不是为了留名传世，而是为了质量可以追溯。',
       imageIds: [],
       categoryId: 'cat-material',

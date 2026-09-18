@@ -50,6 +50,7 @@ export function KnowledgeDetail() {
   if (!node) return null
 
   const isInscription = node.id === 'node-inscription'
+  const isDutyChain = node.id === 'node-duty-chain'
   const isLogistics = node.id === 'node-ming-logistics'
   const isRead = mission?.kind === 'read'
   const isObserve = mission?.kind === 'observe'
@@ -160,6 +161,17 @@ export function KnowledgeDetail() {
               {needsObservation ? null : <NodeImages key={node.id} imageIds={node.imageIds} />}
 
               {isInscription ? <BrickInscriptionCard /> : null}
+
+              {isDutyChain ? (
+                <BrickInscriptionCard
+                  variant="trace"
+                  onTrace={() =>
+                    document
+                      .querySelector('.mission-panel')
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  }
+                />
+              ) : null}
 
               {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
 

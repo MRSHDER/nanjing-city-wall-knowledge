@@ -219,11 +219,11 @@ export const missions: Mission[] = [
     id: 'mission-duty-chain',
     nodeId: 'node-duty-chain',
     title: '一块砖，为什么留下这么多名字？',
-    brief: '城砖铭文中的姓名和身份不是偶然留下的。它们与城砖生产、管理和质量责任有关。',
-    prompt: '从府县管理人员到窑匠、造砖人夫，这些名字连起来说明了什么？',
+    brief: '砖面上的名字来自不同身份的人，先看清它们分别是谁。',
+    prompt: '这些不同身份共同出现在城砖铭文中，反映了怎样的管理方式？',
     kind: 'choose',
     choices: [
-      { id: 'a', label: '城砖生产存在逐层可追溯的责任关系', correct: true },
+      { id: 'a', label: '城砖生产中的责任可以沿不同环节追溯', correct: true },
       {
         id: 'b',
         label: '这些名字之间没有层级，只是随机刻写',
