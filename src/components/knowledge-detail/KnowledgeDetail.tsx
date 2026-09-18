@@ -4,6 +4,7 @@ import { useExploration } from '@/state/ExplorationContext'
 import { KioskButton } from '../common/KioskButton'
 import { MissionPanel, type MissionVerdict } from '../missions/MissionPanel'
 import { BrickInscriptionCard } from './BrickInscriptionCard'
+import { BrickObservation } from './BrickObservation'
 import { InscriptionQuest } from './InscriptionQuest'
 import { LogisticsPath, type LogisticsStage } from './LogisticsPath'
 import { NodeImages } from './NodeImages'
@@ -21,15 +22,21 @@ export function KnowledgeDetail() {
   const [verdict, setVerdict] = useState<MissionVerdict>('idle')
   const [showBody, setShowBody] = useState(false)
   const [logisticsStage, setLogisticsStage] = useState<LogisticsStage | null>(null)
+  const [observed, setObserved] = useState(false)
 
   useEffect(() => {
     setVerdict('idle')
     setShowBody(false)
     setLogisticsStage(null)
+    setObserved(false)
   }, [session.selectedNodeId])
 
   const handleVerdict = useCallback((next: MissionVerdict) => {
     setVerdict(next)
+  }, [])
+
+  const handleObserved = useCallback((next: boolean) => {
+    setObserved(next)
   }, [])
 
   const handleLogisticsStage = useCallback((stage: LogisticsStage) => {
@@ -45,9 +52,11 @@ export function KnowledgeDetail() {
   const isInscription = node.id === 'node-inscription'
   const isLogistics = node.id === 'node-ming-logistics'
   const isRead = mission?.kind === 'read'
+  const isObserve = mission?.kind === 'observe'
   const answeredCorrect = verdict === 'correct'
   const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
-  const canContinue = answeredCorrect || isRead || alreadyCompleted
+  const canContinue = answeredCorrect || isRead || (isObserve && observed) || alreadyCompleted
+  const canConfirmObserve = isObserve && !alreadyCompleted
   const correctChoice = mission?.choices?.find((choice) => choice.correct)
   const rich = isInscription
 
@@ -147,6 +156,8 @@ export function KnowledgeDetail() {
 
           {isInscription && mission ? (
             <InscriptionQuest key={mission.id} mission={mission} />
+          ) : isObserve && mission ? (
+            <BrickObservation key={mission.id} mission={mission} onObserved={handleObserved} />
           ) : mission ? (
             <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
           ) : null}
@@ -159,7 +170,7 @@ export function KnowledgeDetail() {
 
           {canContinue ? (
             <KioskButton className="knowledge-detail__continue" onClick={onContinue}>
-              继续探索
+              {canConfirmObserve ? '完成观察，继续探索' : '继续探索'}
             </KioskButton>
           ) : null}
         </div>
