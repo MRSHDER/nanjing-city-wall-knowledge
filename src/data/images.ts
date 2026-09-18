@@ -21,6 +21,21 @@ export const exhibitImages: Record<string, ExhibitImage> = {
     alt: '南京城墙博物馆展出的铭文城砖砖面特写',
     caption: '南京城墙博物馆铭文城砖砖面特写（南京城墙博物馆实地调研拍摄，2026）',
   },
+  'imperial-city': {
+    src: 'images/imperial-city.jpg',
+    alt: '南京城墙博物馆「皇城 / 宫城」展陈',
+    caption: '南京城墙博物馆「皇城 / 宫城」展陈（南京城墙博物馆实地调研拍摄，2026）',
+  },
+  'zhengyang-gate': {
+    src: 'images/zhengyang-gate.jpg',
+    alt: '南京城墙博物馆「正阳门（光华门）」展板',
+    caption: '南京城墙博物馆「正阳门（光华门）」展板（南京城墙博物馆实地调研拍摄，2026）',
+  },
+  'gate-modern-changes': {
+    src: 'images/gate-modern-changes.jpg',
+    alt: '南京城墙博物馆武定门、雨花门、中华东门近现代变迁展板',
+    caption: '武定门、雨花门、中华东门近现代变迁展板（南京城墙博物馆实地调研拍摄，2026）',
+  },
   'liudehua-brick': {
     src: 'images/liudehua-brick.jpg',
     alt: '南京城墙博物馆藏刘德華铭文城砖',
