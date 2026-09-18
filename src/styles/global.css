@@ -176,7 +176,7 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 }
 .role-match { display: grid; gap: 16px; margin: 16px 0; }
 .role-match__duties { display: grid; gap: 8px; }
-@keyframes node-pulse { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.34; } }
+@keyframes node-pulse { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.13; } }
 @keyframes choice-fade { from { opacity: 0.72; } to { opacity: 1; } }
 .map-node--available .map-node__glow { animation: node-pulse 1.8s ease-in-out infinite; }
 

@@ -8,8 +8,8 @@
 }
 
 @keyframes node-pulse {
-  0%, 100% { opacity: 0.16; }
-  50% { opacity: 0.34; }
+  0%, 100% { opacity: 0.05; }
+  50% { opacity: 0.13; }
 }
 
 .inscription-quest,

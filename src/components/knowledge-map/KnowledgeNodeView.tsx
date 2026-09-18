@@ -2,7 +2,8 @@ import type { MapPosition, NodeStatus } from '@/types'
 
 const RING: Record<NodeStatus, string> = {
   locked: '#5a5348',
-  available: '#d4a017',
+  // 可探索比完成态暗一档：只提示“这里能点”，不与完成标识抢层级。
+  available: '#b0871f',
   discovered: '#c9a227',
   selected: '#f3ead7',
   completed: '#d4a017',
@@ -38,7 +39,7 @@ export function KnowledgeNodeView({ title, caption, status, position, onOpen }: 
       style={{ cursor: locked ? 'default' : 'pointer' }}
     >
       {available || selected ? (
-        <circle className="map-node__glow" r={54} fill="#d4a017" opacity={0.2} />
+        <circle className="map-node__glow" r={34} fill="#d4a017" opacity={0.12} />
       ) : null}
       {/* Keep the visible node compact while giving touch screens a forgiving hit target. */}
       <circle r={52} fill="transparent" />
@@ -46,7 +47,7 @@ export function KnowledgeNodeView({ title, caption, status, position, onOpen }: 
         r={28}
         fill={FILL[status]}
         stroke={RING[status]}
-        strokeWidth={available || completed || selected ? 3 : 1.5}
+        strokeWidth={completed || selected ? 3 : available ? 2 : 1.5}
       />
       {completed ? (
         <circle r={22} fill="none" stroke="#d4a017" strokeWidth={1.5} opacity={0.7} />
@@ -66,7 +67,7 @@ export function KnowledgeNodeView({ title, caption, status, position, onOpen }: 
           strokeLinejoin="round"
         />
       ) : (
-        <circle r={4} fill="#e8d5a3" />
+        <circle r={4} fill="#d4a017" />
       )}
       <text y={50} textAnchor="middle" fill="#f3ead7" fontSize={18}>
         {title}
