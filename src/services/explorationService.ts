@@ -48,6 +48,22 @@ export function clearSelection(state: SessionState): SessionState {
   return { ...state, selectedNodeId: null }
 }
 
+/**
+ * 最终节点：整个探索的唯一收束点。
+ * 它不随任何单个任务解锁，只有其余节点全部 completed 后才会变为 available。
+ * 关系边（如「今日传承」「历史留下的声音」）只是知识/叙事连线，不参与解锁判断。
+ */
+const FINAL_NODE_ID: NodeId = 'node-heritage'
+
+/** 除最终节点外，其余节点是否都已 completed。 */
+function isFinalNodeUnlockable(
+  nodeStatusById: SessionState['nodeStatusById'],
+): boolean {
+  return catalog.nodes.every(
+    (node) => node.id === FINAL_NODE_ID || nodeStatusById[node.id] === 'completed',
+  )
+}
+
 export function completeMission(
   state: SessionState,
   mission: Mission,
@@ -58,9 +74,19 @@ export function completeMission(
   nodeStatusById[mission.nodeId] = 'completed'
 
   for (const id of mission.unlocksNodeIds) {
+    // 最终节点跳过常规解锁，只由下面的最终门控判断。
+    if (id === FINAL_NODE_ID) continue
     if (nodeStatusById[id] === 'locked') {
       nodeStatusById[id] = 'available'
     }
+  }
+
+  // 最终门控：其余 10 个节点全部完成，城墙与今天才从 locked 变为 available。
+  if (
+    nodeStatusById[FINAL_NODE_ID] === 'locked' &&
+    isFinalNodeUnlockable(nodeStatusById)
+  ) {
+    nodeStatusById[FINAL_NODE_ID] = 'available'
   }
 
   const completedMissionIds = [...state.completedMissionIds, mission.id]
