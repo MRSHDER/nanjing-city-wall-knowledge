@@ -113,51 +113,56 @@ export function KnowledgeDetail() {
           ×
         </button>
 
-        <div className="knowledge-detail__eyebrow">
-          知识节点 · {CATEGORY_LABEL[node.categoryId] ?? '南京城墙'}
+        <div className="knowledge-detail__header">
+          <div className="knowledge-detail__eyebrow">
+            知识节点 · {CATEGORY_LABEL[node.categoryId] ?? '南京城墙'}
+          </div>
+          <div className="knowledge-detail__title-row">
+            <h2>{node.title}</h2>
+            {!isRead ? (
+              <button
+                type="button"
+                className={`intro-toggle${showBody ? ' is-open' : ''}`}
+                aria-expanded={showBody}
+                aria-controls="node-intro"
+                aria-label={showBody ? '收起线索' : '查看线索'}
+                onClick={() => setShowBody((open) => !open)}
+              >
+                <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+                  {showBody ? <path d="M14 6 L8 12 L14 18" /> : <path d="M6 10 L12 16 L18 10" />}
+                </svg>
+                <span>线索</span>
+              </button>
+            ) : null}
+          </div>
         </div>
-        <div className="knowledge-detail__title-row">
-          <h2>{node.title}</h2>
-          {!isRead ? (
-            <button
-              type="button"
-              className={`intro-toggle${showBody ? ' is-open' : ''}`}
-              aria-expanded={showBody}
-              aria-controls="node-intro"
-              aria-label={showBody ? '收起线索' : '查看线索'}
-              onClick={() => setShowBody((open) => !open)}
-            >
-              <svg className="intro-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
-                {showBody ? <path d="M14 6 L8 12 L14 18" /> : <path d="M6 10 L12 16 L18 10" />}
-              </svg>
-              <span>线索</span>
-            </button>
+
+        <div className="knowledge-detail__scroll">
+          <p className="knowledge-detail__summary">{node.summary}</p>
+          <NodeImages key={node.id} imageIds={node.imageIds} />
+
+          {isInscription ? <BrickInscriptionCard /> : null}
+
+          {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
+
+          {isInscription && mission ? (
+            <InscriptionQuest key={mission.id} mission={mission} />
+          ) : mission ? (
+            <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
+          ) : null}
+
+          {isRead ? (
+            <div id="node-intro" className="knowledge-detail__reading">
+              <p>{node.content}</p>
+            </div>
+          ) : null}
+
+          {canContinue ? (
+            <KioskButton className="knowledge-detail__continue" onClick={onContinue}>
+              继续探索
+            </KioskButton>
           ) : null}
         </div>
-        <p className="knowledge-detail__summary">{node.summary}</p>
-        <NodeImages key={node.id} imageIds={node.imageIds} />
-
-        {isInscription ? <BrickInscriptionCard /> : null}
-
-        {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
-
-        {isInscription && mission ? (
-          <InscriptionQuest key={mission.id} mission={mission} />
-        ) : mission ? (
-          <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
-        ) : null}
-
-        {isRead ? (
-          <div id="node-intro" className="knowledge-detail__reading">
-            <p>{node.content}</p>
-          </div>
-        ) : null}
-
-        {canContinue ? (
-          <KioskButton className="knowledge-detail__continue" onClick={onContinue}>
-            继续探索
-          </KioskButton>
-        ) : null}
       </aside>
     </>
   )

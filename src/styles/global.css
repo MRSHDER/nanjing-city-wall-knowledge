@@ -42,12 +42,30 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 }
 .knowledge-detail {
   position: absolute; z-index: 10; top: 104px; right: 32px; bottom: 32px;
-  width: min(560px, 38vw); overflow: hidden; padding: 28px 30px 24px;
-  display: flex; flex-direction: column;
+  max-height: calc(100vh - 136px);
+  width: min(560px, 38vw); overflow: hidden; padding: 0;
+  display: flex; flex-direction: column; min-height: 0;
   border: 1px solid rgba(212, 160, 23, 0.45); border-radius: 18px;
   background: rgba(31, 26, 20, 0.97); box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
 }
-.knowledge-detail.is-rich { overflow: auto; }
+/* 顶部标题区固定，不随正文滚动 */
+.knowledge-detail__header {
+  flex: 0 0 auto;
+  padding: 28px 30px 0;
+}
+/* 唯一的滚动容器：正文、题目与“继续探索”按钮都在正常文档流内 */
+.knowledge-detail__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: 0 30px 32px;
+  display: flex; flex-direction: column;
+}
+.knowledge-detail__scroll > * { flex: 0 0 auto; }
 .knowledge-detail__close {
   position: absolute; top: 16px; right: 16px;
   display: grid; place-items: center;
@@ -103,11 +121,11 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
 }
 .knowledge-detail h2 { margin: 0; font-size: 32px; }
-.knowledge-detail > .knowledge-detail__summary, .knowledge-detail__body p {
+.knowledge-detail .knowledge-detail__summary, .knowledge-detail__body p {
   line-height: 1.7; color: var(--color-muted);
 }
 .knowledge-detail__summary { font-size: 20px; margin: 0 0 4px; }
-.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 1 1 auto; min-height: 0; }
+.knowledge-detail .mission-panel { margin: 12px 0 10px; flex: 0 0 auto; }
 .knowledge-detail__reading {
   margin: 4px 0 16px;
   padding: 16px 18px;
@@ -122,10 +140,11 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   color: var(--color-muted);
 }
 .knowledge-detail__continue {
+  position: static;
   align-self: stretch;
   flex: 0 0 auto;
   min-width: 220px;
-  margin-top: auto;
+  margin: 18px 0 0;
 }
 .mission-kicker { margin-bottom: 8px; font-size: 15px; letter-spacing: 0.16em; color: var(--color-available); }
 .mission-panel h3 { margin: 0 0 10px; font-size: 26px; }
