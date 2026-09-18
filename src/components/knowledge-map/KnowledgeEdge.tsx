@@ -35,48 +35,24 @@ function createDetourRoute(
   to: MapPosition,
 ): EdgeGeometry | null {
   switch (relationId) {
-    // 城砖铭文 → 城墙与今天：先向右下绕过“城砖铭文”名称，
-    // 再落到主链下方横向绕回，避免横穿 城门—瓮城—城砖 一段。
+    // 城砖铭文 → 城墙与今天：从节点左下方出线，绕开自身名称，
+    // 沿构图下缘回到左中下的终点，不横穿中部的 城门—瓮城 一组。
     case 'rel-inscription-heritage': {
-      const dipY = to.y + 48
-      const outX = from.x + 82
+      const start = { x: from.x - 100, y: from.y + 90 }
+      const end = { x: to.x + 540, y: to.y - 50 }
       return {
-        d:
-          `M ${from.x} ${from.y} ` +
-          `C ${outX} ${from.y + 16}, ${outX + 20} ${from.y + 66}, ${outX} ${from.y + 128} ` +
-          `C ${outX - 4} ${dipY - 48}, ${from.x + 10} ${dipY - 4}, ${from.x - 100} ${dipY} ` +
-          `C ${(from.x + to.x) / 2} ${dipY + 8}, ${to.x + 190} ${dipY + 4}, ${to.x} ${to.y}`,
-        label: { x: to.x + 400, y: dipY - 18 },
+        d: `M ${from.x} ${from.y} C ${start.x} ${start.y}, ${end.x} ${end.y}, ${to.x} ${to.y}`,
+        label: { x: to.x + 377, y: to.y - 103 },
       }
     }
-
-    // 筑城营造 → 城砖：贴主链上方横向绕行一段，再落入城砖，
-    // 避免这条支线斜穿中部与其它支线交叉。
-    case 'rel-engineering-brick':
-      return {
-        d:
-          `M ${from.x} ${from.y} ` +
-          `C ${from.x + 130} ${from.y}, ${to.x - 40} ${from.y + 100}, ${to.x} ${to.y}`,
-        label: { x: from.x + 182, y: from.y + 44 },
-      }
 
     default:
       return null
   }
 }
 
-function createRoutePath(from: MapPosition, to: MapPosition, isMainRoute: boolean) {
-  const dx = to.x - from.x
-  const dy = to.y - from.y
-  const distance = Math.hypot(dx, dy)
-
-  if (!isMainRoute || distance < 260) {
-    return `M ${from.x} ${from.y} L ${to.x} ${to.y}`
-  }
-
-  const bendX = from.x + dx * 0.48
-  const bendY = from.y + dy * 0.18
-  return `M ${from.x} ${from.y} L ${bendX} ${bendY} L ${to.x} ${to.y}`
+function createRoutePath(from: MapPosition, to: MapPosition) {
+  return `M ${from.x} ${from.y} L ${to.x} ${to.y}`
 }
 
 function getLabelPosition(from: MapPosition, to: MapPosition) {
@@ -94,7 +70,7 @@ export function KnowledgeEdge({ relation, from, to, fromStatus, toStatus }: Prop
   const completed = fromStatus === 'completed' && toStatus === 'completed'
   const isMainRoute = MAIN_ROUTE_RELATIONS.has(relation.id)
   const detour = createDetourRoute(relation.id, from, to)
-  const path = detour?.d ?? createRoutePath(from, to, isMainRoute)
+  const path = detour?.d ?? createRoutePath(from, to)
   const label = detour?.label ?? getLabelPosition(from, to)
   const color = completed ? '#7fb277' : lit ? '#d4a017' : '#8a7348'
 
