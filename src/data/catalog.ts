@@ -149,7 +149,7 @@ export const catalog: KnowledgeCatalog = {
     {
       id: 'node-brick',
       title: '城砖',
-      summary: '看似普通的一块砖，是理解筑城工程的入口。',
+      summary: '看似相近的城砖，也藏着不同的制作痕迹。',
       content: '城砖是南京城墙数量庞大的基础建材。明代城砖的生产涉及多个地区，部分砖面留下产地、责任人员等铭文，使一块建筑材料同时成为可以研究的历史资料。',
       imageIds: [],
       categoryId: 'cat-material',
@@ -165,7 +165,7 @@ export const catalog: KnowledgeCatalog = {
     {
       id: 'node-inscription',
       title: '城砖铭文',
-      summary: '砖上的名字，把六百多年前的工程责任留下来。',
+      summary: '有些城砖还留下了更明确的线索——文字。',
       content: '南京明城墙城砖上的铭文是重要的历史信息载体。部分铭文记录府、州、县以及基层人员、窑匠和造砖人夫等信息，可以帮助研究明初城砖生产和责任管理。博物馆也设有城砖铭文查询相关展示，让观众从一块砖认识它背后的生产者。',
       imageIds: ['liudehua-brick'],
       categoryId: 'cat-material',
