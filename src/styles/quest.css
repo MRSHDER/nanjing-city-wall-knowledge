@@ -7,6 +7,31 @@
   filter: drop-shadow(0 0 10px rgba(127, 178, 119, 0.45));
 }
 
+/* 节点完成：内圈一次短促收束脉冲，让“这个点完成了”被看见；总时长 480ms */
+@keyframes node-complete {
+  0% { opacity: 0; transform: scale(0.6); }
+  55% { opacity: 0.95; transform: scale(1.05); }
+  100% { opacity: 0.7; transform: scale(1); }
+}
+.map-node--completed circle:nth-of-type(3) {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-complete var(--dur-major) var(--ease-out) both;
+}
+
+/* 选项按压：先亮边框与底色，再回位 */
+.mission-choice:not(:disabled):active {
+  background: rgba(212, 160, 23, 0.16);
+  border-color: rgba(212, 160, 23, 0.7);
+}
+.logistics-step:not(:disabled):active {
+  background: rgba(212, 160, 23, 0.16);
+}
+@media (hover: hover) {
+  .mission-choice:not(:disabled):hover { background: rgba(255, 255, 255, 0.09); }
+  .logistics-step:not(:disabled):hover { background: rgba(255, 255, 255, 0.09); }
+}
+
 @keyframes node-pulse {
   0%, 100% { opacity: 0.05; }
   50% { opacity: 0.13; }
