@@ -4,24 +4,28 @@ import { useExploration } from '@/state/ExplorationContext'
 import type { Mission } from '@/types'
 import './brick-observation.css'
 
-/** 观察素材：仓库现有的真实馆藏照片，暂与城砖铭文节点复用。 */
-const BRICK_IMAGE_ID = 'liudehua-brick'
-
 interface Props {
   mission: Mission
   onObserved?: (observed: boolean) => void
 }
 
-/** 城砖节点的观察型任务：点击砖面图片完成一次观察，不做坐标热点识别。 */
+/**
+ * 城砖相关的图片观察任务：点击图片完成一次观察，不做坐标热点识别。
+ * 观察素材与文案由 mission.observation 提供，城砖、城砖铭文两个节点共用同一组件。
+ */
 export function BrickObservation({ mission, onObserved }: Props) {
   const { session } = useExploration()
-  const done = session.completedMissionIds.includes(mission.id)
-  const [observed, setObserved] = useState(done)
-  const image = exhibitImages[BRICK_IMAGE_ID]
+  const observation = mission.observation
+  /** 进入节点时任务是否已经完成：重访时直接显示已完成观察，不要求重做。 */
+  const [revisit] = useState(() => session.completedMissionIds.includes(mission.id))
+  const [observed, setObserved] = useState(revisit)
+  const image = observation ? exhibitImages[observation.imageId] : undefined
 
   useEffect(() => {
     onObserved?.(observed)
   }, [observed, onObserved])
+
+  if (!observation) return null
 
   function onObserve() {
     if (observed) return
@@ -32,7 +36,7 @@ export function BrickObservation({ mission, onObserved }: Props) {
     <section className="brick-observation" aria-label="城砖观察任务">
       <div className="mission-kicker">观察任务</div>
       <h3>{mission.title}</h3>
-      <p className="brick-observation__prompt">{mission.prompt}</p>
+      <p className="brick-observation__prompt">{observation.prompt}</p>
 
       {image ? (
         <button
@@ -51,10 +55,8 @@ export function BrickObservation({ mission, onObserved }: Props) {
 
       {observed ? (
         <div className="brick-observation__finding" role="status" aria-live="polite">
-          <strong>{done ? '✓ 已完成观察' : '发现线索｜砖面文字'}</strong>
-          <span>
-            城砖不仅是建筑材料，砖面留下的文字也成为今天认识南京城墙的重要历史信息。
-          </span>
+          <strong>{revisit ? '✓ 已完成观察' : observation.findingTitle}</strong>
+          <span>{observation.findingText}</span>
         </div>
       ) : null}
     </section>

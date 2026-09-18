@@ -55,7 +55,10 @@ export function KnowledgeDetail() {
   const isObserve = mission?.kind === 'observe'
   const answeredCorrect = verdict === 'correct'
   const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
-  const canContinue = answeredCorrect || isRead || (isObserve && observed) || alreadyCompleted
+  /** 带图片观察的任务：必须先完成观察，才显示后续内容与继续按钮。 */
+  const needsObservation = Boolean(mission?.observation)
+  const observationDone = !needsObservation || observed || alreadyCompleted
+  const canContinue = alreadyCompleted || (observationDone && (isObserve || isRead || answeredCorrect))
   const canConfirmObserve = isObserve && !alreadyCompleted
   const correctChoice = mission?.choices?.find((choice) => choice.correct)
   const rich = isInscription
@@ -148,24 +151,31 @@ export function KnowledgeDetail() {
 
         <div className="knowledge-detail__scroll">
           <p className="knowledge-detail__summary">{node.summary}</p>
-          <NodeImages key={node.id} imageIds={node.imageIds} />
 
-          {isInscription ? <BrickInscriptionCard /> : null}
-
-          {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
-
-          {isInscription && mission ? (
-            <InscriptionQuest key={mission.id} mission={mission} />
-          ) : isObserve && mission ? (
+          {needsObservation && mission ? (
             <BrickObservation key={mission.id} mission={mission} onObserved={handleObserved} />
-          ) : mission ? (
-            <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
           ) : null}
 
-          {isRead ? (
-            <div id="node-intro" className="knowledge-detail__reading">
-              <p>{node.content}</p>
-            </div>
+          {observationDone ? (
+            <>
+              {needsObservation ? null : <NodeImages key={node.id} imageIds={node.imageIds} />}
+
+              {isInscription ? <BrickInscriptionCard /> : null}
+
+              {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
+
+              {isInscription && mission ? (
+                <InscriptionQuest key={mission.id} mission={mission} />
+              ) : mission && !isObserve ? (
+                <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
+              ) : null}
+
+              {isRead ? (
+                <div id="node-intro" className="knowledge-detail__reading">
+                  <p>{node.content}</p>
+                </div>
+              ) : null}
+            </>
           ) : null}
 
           {canContinue ? (
