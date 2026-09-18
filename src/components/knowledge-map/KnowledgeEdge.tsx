@@ -19,6 +19,52 @@ const MAIN_ROUTE_RELATIONS = new Set([
   'rel-origin-logistics',
 ])
 
+interface EdgeGeometry {
+  d: string
+  label: { x: number; y: number }
+}
+
+/**
+ * 手工绕行线路。
+ * 只覆盖必须绕开节点与文字的少数关系；未列出的关系仍按两节点直连绘制。
+ * 路径用 from/to 现算，节点坐标微调时线路会跟着走。
+ */
+function createDetourRoute(
+  relationId: string,
+  from: MapPosition,
+  to: MapPosition,
+): EdgeGeometry | null {
+  switch (relationId) {
+    // 城砖铭文 → 城墙与今天：先向右下绕过“城砖铭文”名称，
+    // 再落到主链下方横向绕回，避免横穿 城门—瓮城—城砖 一段。
+    case 'rel-inscription-heritage': {
+      const dipY = to.y + 48
+      const outX = from.x + 82
+      return {
+        d:
+          `M ${from.x} ${from.y} ` +
+          `C ${outX} ${from.y + 16}, ${outX + 20} ${from.y + 66}, ${outX} ${from.y + 128} ` +
+          `C ${outX - 4} ${dipY - 48}, ${from.x + 10} ${dipY - 4}, ${from.x - 100} ${dipY} ` +
+          `C ${(from.x + to.x) / 2} ${dipY + 8}, ${to.x + 190} ${dipY + 4}, ${to.x} ${to.y}`,
+        label: { x: to.x + 400, y: dipY - 18 },
+      }
+    }
+
+    // 筑城营造 → 城砖：贴主链上方横向绕行一段，再落入城砖，
+    // 避免这条支线斜穿中部与其它支线交叉。
+    case 'rel-engineering-brick':
+      return {
+        d:
+          `M ${from.x} ${from.y} ` +
+          `C ${from.x + 130} ${from.y}, ${to.x - 40} ${from.y + 100}, ${to.x} ${to.y}`,
+        label: { x: from.x + 182, y: from.y + 44 },
+      }
+
+    default:
+      return null
+  }
+}
+
 function createRoutePath(from: MapPosition, to: MapPosition, isMainRoute: boolean) {
   const dx = to.x - from.x
   const dy = to.y - from.y
@@ -47,8 +93,9 @@ export function KnowledgeEdge({ relation, from, to, fromStatus, toStatus }: Prop
   const lit = fromStatus !== 'locked' && toStatus !== 'locked'
   const completed = fromStatus === 'completed' && toStatus === 'completed'
   const isMainRoute = MAIN_ROUTE_RELATIONS.has(relation.id)
-  const path = createRoutePath(from, to, isMainRoute)
-  const label = getLabelPosition(from, to)
+  const detour = createDetourRoute(relation.id, from, to)
+  const path = detour?.d ?? createRoutePath(from, to, isMainRoute)
+  const label = detour?.label ?? getLabelPosition(from, to)
   const color = completed ? '#7fb277' : lit ? '#d4a017' : '#8a7348'
 
   if (!isMainRoute) {
