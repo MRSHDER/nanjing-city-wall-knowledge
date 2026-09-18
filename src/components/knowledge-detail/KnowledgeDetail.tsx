@@ -50,12 +50,12 @@ export function KnowledgeDetail() {
   if (!node) return null
 
   const isInscription = node.id === 'node-inscription'
+  const isDutyChain = node.id === 'node-duty-chain'
   const isLogistics = node.id === 'node-ming-logistics'
   const isRead = mission?.kind === 'read'
   const isObserve = mission?.kind === 'observe'
   const answeredCorrect = verdict === 'correct'
   const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
-  /** 带图片观察的任务：必须先完成观察，才显示后续内容与继续按钮。 */
   const needsObservation = Boolean(mission?.observation)
   const observationDone = !needsObservation || observed || alreadyCompleted
   const canContinue = alreadyCompleted || (observationDone && (isObserve || isRead || answeredCorrect))
@@ -160,7 +160,7 @@ export function KnowledgeDetail() {
             <>
               {needsObservation ? null : <NodeImages key={node.id} imageIds={node.imageIds} />}
 
-              {isInscription ? <BrickInscriptionCard /> : null}
+              {isInscription || isDutyChain ? <BrickInscriptionCard /> : null}
 
               {isLogistics ? <LogisticsPath onStageChange={handleLogisticsStage} /> : null}
 

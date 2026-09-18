@@ -101,3 +101,93 @@
 .logistics-path__steps .logistics-step:last-child {
   grid-column: 1 / -1;
 }
+
+.brick-inscription-card {
+  margin: 12px 0 14px;
+  padding: 14px 16px 16px;
+  border: 1px solid rgba(212, 160, 23, 0.28);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.brick-inscription-card__label {
+  margin-bottom: 12px;
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+}
+
+.brick-inscription-card__diagram {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.brick-inscription-card__brick {
+  display: grid;
+  gap: 6px;
+  padding: 14px 12px;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(92, 58, 28, 0.55), rgba(42, 28, 16, 0.9)),
+    repeating-linear-gradient(90deg, rgba(212, 160, 23, 0.08) 0 12px, transparent 12px 24px);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  color: #f3ead7;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.brick-inscription-card__brick span {
+  display: block;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(243, 234, 215, 0.12);
+}
+
+.brick-trace {
+  display: grid;
+  align-content: center;
+  gap: 0;
+}
+
+.brick-trace__step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: baseline;
+  padding: 6px 0;
+}
+
+.brick-trace__step b {
+  grid-row: 1 / span 2;
+  color: var(--color-available);
+  font-family: sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.brick-trace__step span {
+  color: var(--color-text);
+  font-size: 18px;
+}
+
+.brick-trace__step small {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.brick-trace__line {
+  width: 1px;
+  height: 10px;
+  margin: 0 0 0 8px;
+  background: linear-gradient(180deg, rgba(212, 160, 23, 0.7), rgba(212, 160, 23, 0.15));
+}
+
+.brick-trace__hint {
+  margin: 12px 0 0;
+  color: var(--color-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
