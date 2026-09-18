@@ -149,6 +149,10 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 .mission-kicker { margin-bottom: 8px; font-size: 15px; letter-spacing: 0.16em; color: var(--color-available); }
 .mission-panel h3 { margin: 0 0 10px; font-size: 26px; }
 .mission-panel p { line-height: 1.7; }
+.mission-panel .mission-brief {
+  margin: 0 0 12px;
+  color: var(--color-muted);
+}
 .mission-choices { display: grid; gap: 10px; margin: 12px 0; }
 .mission-choice {
   width: 100%; display: flex; align-items: center; gap: 14px; text-align: left;

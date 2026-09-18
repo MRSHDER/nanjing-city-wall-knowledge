@@ -101,8 +101,8 @@ export const catalog: KnowledgeCatalog = {
     {
       id: 'node-engineering',
       title: '筑城营造',
-      summary: '一座城墙背后，是庞大的工程组织与社会动员。',
-      content: '南京明城墙的营建涉及大量人力、物料运输和工程组织。城砖铭文等遗存，让今天的人能够从具体材料反过来观察明初大型工程的组织方式。',
+      summary: '筑城从材料开始，一块城砖也要经过多道工序才能成形。',
+      content: '南京明城墙的营建涉及大量人力、物料与工程组织。城砖是其中的基础材料，制作时要先处理制砖所需的土——择土、熟土、过筛、暖水，原料需要经过细致处理。',
       imageIds: [],
       categoryId: 'cat-history',
       periodId: 'period-ming-hongwu',

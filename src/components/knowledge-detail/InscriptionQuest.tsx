@@ -6,22 +6,23 @@ type JudgeStatus = 'idle' | 'wrong' | 'correct'
 
 const JUDGE_OPTIONS = [
   {
-    id: 'responsibility',
-    label: '追溯生产责任',
+    id: 'info',
+    label: '产地、人名，以及制作与责任信息',
     correct: true,
-    explanation: '这些名字把造砖、烧造和管理责任留在砖上。',
+    explanation:
+      '这些文字把一块普通的建筑材料变成了可以追踪的信息载体。沿着铭文，我们不仅能寻找它从哪里来，还能继续寻找参与制作和管理的人。',
   },
   {
-    id: 'decoration',
-    label: '装饰砖面',
+    id: 'kiln',
+    label: '砖窑当时的烧制温度',
     correct: false,
-    hint: '这些文字不是装饰，重点是“谁负责”。',
+    hint: '铭文记录的不是窑温，而是人和地方。',
   },
   {
-    id: 'guide',
-    label: '给游客指路',
+    id: 'craft',
+    label: '这段城墙的砌筑工序',
     correct: false,
-    hint: '它们不是路线标识，而是明代工程留下的责任信息。',
+    hint: '铭文留在砖上，讲的是这块砖自己的信息。',
   },
 ] as const
 
@@ -33,7 +34,7 @@ export function InscriptionQuest({ mission }: Props) {
   const { session, finishMission } = useExploration()
   const done = session.completedMissionIds.includes(mission.id)
   const [judgeStatus, setJudgeStatus] = useState<JudgeStatus>(done ? 'correct' : 'idle')
-  const [judgeId, setJudgeId] = useState<string | null>(done ? 'responsibility' : null)
+  const [judgeId, setJudgeId] = useState<string | null>(done ? 'info' : null)
   const [judgeHint, setJudgeHint] = useState<string | null>(null)
   const [triedJudgeIds, setTriedJudgeIds] = useState<string[]>([])
 
@@ -58,7 +59,7 @@ export function InscriptionQuest({ mission }: Props) {
   return (
     <section className="inscription-quest" aria-label="城砖铭文观察题">
       <div className="mission-kicker">观察题</div>
-      <h3>砖面上这些名字主要为了什么？</h3>
+      <h3>从城砖铭文中，我们可能追踪到哪些信息？</h3>
       <div className="mission-choices">
         {JUDGE_OPTIONS.map((option, index) => {
           const isCorrectPick = judgeStatus === 'correct' && option.correct

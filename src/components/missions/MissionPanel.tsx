@@ -46,6 +46,7 @@ export function MissionPanel({ mission, onVerdictChange }: Props) {
     <section className="mission-panel" aria-label="探索任务">
       <div className="mission-kicker">探索任务</div>
       <h3>{mission.title}</h3>
+      {mission.brief ? <p className="mission-brief">{mission.brief}</p> : null}
       <p>{mission.prompt}</p>
 
       {done && status === 'idle' ? (

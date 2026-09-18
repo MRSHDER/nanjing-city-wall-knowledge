@@ -26,6 +26,8 @@ export interface Mission {
   id: MissionId
   nodeId: NodeId
   title: string
+  /** 参观引导：说明这一步要观察或思考什么，显示在问题之前。 */
+  brief?: string
   prompt: string
   kind: MissionKind
   choices?: MissionChoice[]
