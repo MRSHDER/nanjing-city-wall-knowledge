@@ -242,7 +242,7 @@ export const missions: Mission[] = [
     unlocksNodeIds: ['node-brick-origin'],
     exploreValue: 20,
   },
-  // 预留照片 E（最高优先级）：《南京城墙砖产地及运输水系图》，本节点重点观察「从哪里来」。
+  // 素材 E 已接入：《南京城墙砖产地及运输水系图》（实地调研拍摄，2026），本节点重点观察「从哪里来」。
   {
     id: 'mission-brick-origin',
     nodeId: 'node-brick-origin',
@@ -268,10 +268,18 @@ export const missions: Mission[] = [
     ],
     explanation:
       '一块块城砖把不同地区与南京连接起来。但新的问题也出现了：数量庞大、重量惊人的城砖，是怎样来到南京的？',
+    observation: {
+      imageId: 'brick-origin-map',
+      prompt: '先看这张图：图上除了地形，还标出了城砖产地和运输水系。',
+      actionLabel: '点击地图进行观察',
+      doneLabel: '✓ 已观察地图',
+      findingTitle: '发现线索｜产地与水系在同一张图上',
+      findingText: '产地标记和水系走向被放在同一张地图里，需要对照着看它们之间的关系。',
+    },
     unlocksNodeIds: ['node-ming-logistics'],
     exploreValue: 20,
   },
-  // 预留照片 F（最高优先级）：与 mission-brick-origin 共用《南京城墙砖产地及运输水系图》，
+  // 素材 F 已接入：与 mission-brick-origin 共用《南京城墙砖产地及运输水系图》，
   // 本节点重点观察「怎样到南京」，不需要为两关各准备一张不同的地图。
   {
     id: 'mission-ming-logistics',
@@ -297,6 +305,14 @@ export const missions: Mission[] = [
     ],
     explanation:
       '产地与水系共同构成了一张跨区域的运输网络。城砖沿水路汇集、转运，最终来到南京，成为城墙的一部分。',
+    observation: {
+      imageId: 'brick-origin-map',
+      prompt: '再看这张图，这次顺着水系，从产地一路看到南京。',
+      actionLabel: '点击地图进行观察',
+      doneLabel: '✓ 已观察地图',
+      findingTitle: '发现线索｜水系把产地连向南京',
+      findingText: '水系在地图上把分散的产地连接到同一个终点，这条线路就是城砖汇入南京的通道。',
+    },
     unlocksNodeIds: ['node-heritage'],
     exploreValue: 20,
   },

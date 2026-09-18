@@ -10,6 +10,7 @@
 | `imperial-city` | `public/images/imperial-city.jpg` | 四重城垣 / `node-four-walls`（图文说明） |
 | `zhengyang-gate` | `public/images/zhengyang-gate.jpg` | 城门 / `node-city-gate`（图文说明） |
 | `gate-modern-changes` | `public/images/gate-modern-changes.jpg` | 城墙与今天 / `node-heritage`（图文说明） |
+| `brick-origin-map` | `public/images/brick-origin-map.jpg` | 城砖产地 / `mission-brick-origin` 与 大明物流 / `mission-ming-logistics`（**两关共用**，观察重点不同） |
 | `liudehua-brick` | `public/images/liudehua-brick.jpg` | 已被 `inscribed-brick` 替换，**文件保留以便回退**，当前无节点引用 |
 
 照片只做等比缩放与色彩处理，展示时使用 `object-fit: contain`，不裁切展板文字或砖面铭文主体。
@@ -32,8 +33,8 @@
 | B | 南京城墙博物馆「正阳门（光华门）」展板照片 | `mission-city-gate`（城门） | **已补充**（`zhengyang-gate`，实地调研拍摄，2026） | 已接入 `catalog.ts` 的 `imageIds`；后续若要改成"点击观察"任务，再移入 `observation.imageId` |
 | C | 「城砖制作 / Production of Bricks」展板 | `mission-engineering`（筑城营造） | **已补充**（`brick-production`，实地调研拍摄，2026） | 已作为该任务的主要观察图片，接入 `observation.imageId` |
 | D | 铭文城砖砖面特写 | `mission-inscription`（城砖铭文） | **已补充**（`inscribed-brick`，实地调研拍摄，2026） | 已替换旧的 `liudehua-brick`，旧文件保留 |
-| E | 《南京城墙砖产地及运输水系图》 | `mission-brick-origin`（城砖产地） | **待补（最高优先级）** | 观察重点是「从哪里来」 |
-| F | 同 E 的《南京城墙砖产地及运输水系图》 | `mission-ming-logistics`（大明物流） | **待补（最高优先级）** | 与 E **共用同一张图**，观察重点是「怎样到南京」；不要为两关各准备一张不同地图 |
+| E | 《南京城墙砖产地及运输水系图》 | `mission-brick-origin`（城砖产地） | **已补充**（`brick-origin-map`，实地调研拍摄，2026） | 观察重点是「从哪里来」 |
+| F | 同 E 的《南京城墙砖产地及运输水系图》 | `mission-ming-logistics`（大明物流） | **已补充**（与 E **共用** `brick-origin-map`） | 观察重点是「怎样到南京」；两关共用同一张图，未准备第二张 |
 | G | 城门近现代变迁展板（武定门 / 雨花门 / 中华东门）**或**「明故宫变迁」时间线 | `mission-heritage`（城墙与今天） | **已补充**（`gate-modern-changes`，实地调研拍摄，2026，采用"城门近现代变迁"方案） | 已接入 `catalog.ts` 的 `imageIds`；「明故宫变迁」备选见下 |
 
 备选与暂未使用的调研照片（都在 `D:\我的画` 原始素材中，未入库）：
@@ -43,8 +44,8 @@
 
 说明：
 
-- 目前最高优先级只剩 **E/F《南京城墙砖产地及运输水系图》**，它直接决定「城砖产地 → 大明物流」这条叙事能否成立。
-- 地图类素材属于历史资料图，必须使用馆方展板、公开可靠来源或经授权的图片；在拿到素材之前，任务文案不引用具体图面内容，**不要用 AI 生成历史地图代替**。
+- **A–G 全部素材已到位**，无待补项。
+- 地图类素材为馆方展板实拍，未使用 AI 生成历史地图，也未上网抓取未经授权的历史地图。
 - 接入图片时，`alt` 与 `caption` 应保留拍摄对象、来源及必要署名信息。
 
 ## 版本约束

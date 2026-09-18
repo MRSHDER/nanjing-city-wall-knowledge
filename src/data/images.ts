@@ -36,6 +36,12 @@ export const exhibitImages: Record<string, ExhibitImage> = {
     alt: '南京城墙博物馆武定门、雨花门、中华东门近现代变迁展板',
     caption: '武定门、雨花门、中华东门近现代变迁展板（南京城墙博物馆实地调研拍摄，2026）',
   },
+  // 城砖产地与大明物流两关共用这一张图，只是观察重点不同。
+  'brick-origin-map': {
+    src: 'images/brick-origin-map.jpg',
+    alt: '南京城墙砖产地及运输水系图',
+    caption: '南京城墙砖产地及运输水系图（南京城墙博物馆实地调研拍摄，2026）',
+  },
   'liudehua-brick': {
     src: 'images/liudehua-brick.jpg',
     alt: '南京城墙博物馆藏刘德華铭文城砖',
