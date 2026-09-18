@@ -121,6 +121,9 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
 .knowledge-detail__scroll > * { flex: 0 0 auto; }
 .knowledge-detail__close {
   position: absolute; top: 16px; right: 16px;
+  /* 头部进入动画结束后仍保留 transform，会形成层叠上下文并盖住本按钮；
+     显式抬高层级，保证整个圆形区域都可点击。 */
+  z-index: 2;
   display: grid; place-items: center;
   width: 48px; height: 48px; min-width: 48px; min-height: 48px;
   padding: 0; border-radius: 50%;
