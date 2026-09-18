@@ -2,18 +2,18 @@
   animation: node-pulse 1.8s ease-in-out infinite;
 }
 
-.map-node--completed circle:nth-of-type(2),
-.map-node--completed circle:nth-of-type(3) {
-  filter: drop-shadow(0 0 10px rgba(127, 178, 119, 0.45));
+/* 完成态：实心金盘 + 稳定柔光（常亮，不呼吸） */
+.map-node.is-completed .map-node__disc {
+  filter: drop-shadow(0 0 12px rgba(212, 160, 23, 0.5));
 }
 
-/* 节点完成：内圈一次短促收束脉冲，让“这个点完成了”被看见；总时长 480ms */
+/* 节点完成：柔光一次短促收束脉冲，让“这个点完成了”被看见；总时长 480ms */
 @keyframes node-complete {
   0% { opacity: 0; transform: scale(0.6); }
-  55% { opacity: 0.95; transform: scale(1.05); }
-  100% { opacity: 0.7; transform: scale(1); }
+  55% { opacity: 0.9; transform: scale(1.06); }
+  100% { opacity: 0.2; transform: scale(1); }
 }
-.map-node--completed circle:nth-of-type(3) {
+.map-node__halo {
   transform-box: fill-box;
   transform-origin: center;
   animation: node-complete var(--dur-major) var(--ease-out) both;

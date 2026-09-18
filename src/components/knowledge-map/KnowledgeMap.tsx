@@ -37,6 +37,7 @@ export function KnowledgeMap() {
           key={item.node.id}
           title={item.node.title}
           status={item.status}
+          baseStatus={item.baseStatus}
           position={item.position}
           onOpen={() => {
             if (canOpenNode(item.status)) select(item.node.id)

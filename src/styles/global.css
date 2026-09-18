@@ -269,7 +269,7 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .map-node--available .map-node__glow {
+  .map-node__glow {
     animation: none !important;
     opacity: 0.1 !important;
   }

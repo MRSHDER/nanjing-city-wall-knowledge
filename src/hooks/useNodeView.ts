@@ -15,6 +15,8 @@ export function useNodeView() {
     return {
       node,
       status,
+      // 保留选中前的状态，供节点视图区分“已完成被打开”与“可探索被打开”。
+      baseStatus: base,
       position: positions[node.id],
       mission: knowledgeService.getMissionByNode(node.id),
     }
