@@ -156,8 +156,8 @@ export const missions: Mission[] = [
     observation: {
       imageId: 'brick-production',
       prompt: '仔细观察这块展板，留意制砖用土的样貌和处理后的变化。',
-      actionLabel: '点击展板图片进行观察',
-      doneLabel: '✓ 已观察展板',
+      actionLabel: '完成观察',
+      doneLabel: '✓ 已完成观察',
       findingTitle: '发现线索｜制砖用土的处理',
       findingText:
         '展板把制砖用土的处理分成几道工序，并摆出了不同土样和处理后的样品。留意它们之间的先后关系。',
@@ -271,8 +271,8 @@ export const missions: Mission[] = [
     observation: {
       imageId: 'brick-origin-map',
       prompt: '先看这张图：图上除了地形，还标出了城砖产地和运输水系。',
-      actionLabel: '点击地图进行观察',
-      doneLabel: '✓ 已观察地图',
+      actionLabel: '完成观察',
+      doneLabel: '✓ 已完成观察',
       findingTitle: '发现线索｜产地与水系在同一张图上',
       findingText: '产地标记和水系走向被放在同一张地图里，需要对照着看它们之间的关系。',
     },
@@ -308,8 +308,8 @@ export const missions: Mission[] = [
     observation: {
       imageId: 'brick-origin-map',
       prompt: '再看这张图，这次顺着水系，从产地一路看到南京。',
-      actionLabel: '点击地图进行观察',
-      doneLabel: '✓ 已观察地图',
+      actionLabel: '完成观察',
+      doneLabel: '✓ 已完成观察',
       findingTitle: '发现线索｜水系把产地连向南京',
       findingText: '水系在地图上把分散的产地连接到同一个终点，这条线路就是城砖汇入南京的通道。',
     },

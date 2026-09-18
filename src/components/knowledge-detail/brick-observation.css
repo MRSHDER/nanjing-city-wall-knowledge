@@ -17,6 +17,7 @@
   line-height: 1.7;
 }
 
+/* 图片区：点击只负责放大查看，不代表观察完成 */
 .brick-observation__frame {
   display: block;
   width: 100%;
@@ -25,6 +26,7 @@
   border: 1px solid rgba(203, 184, 146, 0.28);
   border-radius: 10px;
   color: var(--color-available);
+  cursor: zoom-in;
   transition: border-color var(--dur-press) linear, box-shadow var(--dur-press) linear;
 }
 
@@ -35,22 +37,46 @@
   object-fit: contain;
 }
 
-.brick-observation__action {
+/* 弱提示：告诉用户图片可以放大 */
+.brick-observation__zoom-hint {
   display: block;
   padding: 10px 0 2px;
   font-size: 16px;
   letter-spacing: 0.08em;
+  color: var(--color-muted);
   transition: color var(--dur-press) linear;
 }
 
-/* 已观察：边框短暂提亮 + 一圈很轻的描边。照片本身是视觉主体，不做扫光。 */
+.brick-observation__frame:hover .brick-observation__zoom-hint {
+  color: var(--color-available);
+}
+
+/* 已完成观察：边框提亮 + 一圈很轻的描边，仅作为状态标记 */
 .brick-observation__frame.is-observed {
   border-color: var(--color-available);
   box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.32);
 }
 
-.brick-observation__frame.is-observed .brick-observation__action {
+/* 独立的“完成观察”按钮：唯一的观察完成入口（Dialog 内按钮同源） */
+.brick-observation__confirm {
+  display: block;
+  width: 100%;
+  margin: 12px 0 0;
+  min-height: var(--tap-min);
+  font-size: 20px;
+  background: rgba(212, 160, 23, 0.16);
+  border-color: rgba(212, 160, 23, 0.5);
+  color: var(--color-text);
+}
+
+.brick-observation__confirm.is-done {
+  background: rgba(111, 158, 107, 0.14);
+  border-color: rgba(111, 158, 107, 0.5);
   color: var(--color-completed);
+}
+
+.brick-observation__dialog-bar {
+  gap: 12px;
 }
 
 .brick-observation__finding {
