@@ -128,7 +128,7 @@ export const missions: Mission[] = [
     unlocksNodeIds: ['node-brick'],
     exploreValue: 20,
   },
-  // 预留照片 C（最高优先级）：南京城墙博物馆「城砖制作 / Production of Bricks」完整展板。
+  // 素材 C 已接入：南京城墙博物馆「城砖制作 / Production of Bricks」展板（实地调研拍摄，2026）。
   {
     id: 'mission-engineering',
     nodeId: 'node-engineering',
@@ -153,6 +153,15 @@ export const missions: Mission[] = [
     ],
     explanation:
       '从择土、熟土、过筛到暖水，原料需要经过细致处理。不同地区的黏土成分不同，也让南京城砖呈现出不同的质地和色彩。',
+    observation: {
+      imageId: 'brick-production',
+      prompt: '仔细观察这块展板，留意制砖用土的样貌和处理后的变化。',
+      actionLabel: '点击展板图片进行观察',
+      doneLabel: '✓ 已观察展板',
+      findingTitle: '发现线索｜制砖用土的处理',
+      findingText:
+        '展板把制砖用土的处理分成几道工序，并摆出了不同土样和处理后的样品。留意它们之间的先后关系。',
+    },
     unlocksNodeIds: ['node-brick'],
     exploreValue: 20,
   },
@@ -172,7 +181,8 @@ export const missions: Mission[] = [
     unlocksNodeIds: ['node-inscription'],
     exploreValue: 20,
   },
-  // 预留照片 D（最高优先级）：铭文城砖实拍特写，后续优先替换/补充当前 liudehua-brick 素材。
+  // 素材 D 已接入：铭文城砖砖面特写（实地调研拍摄，2026），替换此前的 liudehua-brick。
+  // 旧素材文件 public/images/liudehua-brick.jpg 保留，便于回退。
   {
     id: 'mission-inscription',
     nodeId: 'node-inscription',
@@ -197,7 +207,7 @@ export const missions: Mission[] = [
     explanation:
       '这些文字把一块普通的建筑材料变成了可以追踪的信息载体。沿着铭文，我们不仅能寻找它从哪里来，还能继续寻找参与制作和管理的人。',
     observation: {
-      imageId: 'liudehua-brick',
+      imageId: 'inscribed-brick',
       prompt: '仔细观察这块有铭文的城砖。它留下的并不只是一串文字。',
       findingTitle: '发现线索｜砖面铭文',
       findingText: '砖面上的文字留下了参与生产与管理的人，是认识这项工程的重要线索。',

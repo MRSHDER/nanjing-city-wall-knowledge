@@ -11,6 +11,16 @@ export const exhibitImages: Record<string, ExhibitImage> = {
     alt: '南京城墙博物馆展厅中的城砖陈列',
     caption: '南京城墙博物馆展厅城砖陈列（局部）',
   },
+  'brick-production': {
+    src: 'images/brick-production.jpg',
+    alt: '南京城墙博物馆「城砖制作 / Production of Bricks」展板',
+    caption: '南京城墙博物馆「城砖制作 / Production of Bricks」展板（南京城墙博物馆实地调研拍摄，2026）',
+  },
+  'inscribed-brick': {
+    src: 'images/inscribed-brick.jpg',
+    alt: '南京城墙博物馆展出的铭文城砖砖面特写',
+    caption: '南京城墙博物馆铭文城砖砖面特写（南京城墙博物馆实地调研拍摄，2026）',
+  },
   'liudehua-brick': {
     src: 'images/liudehua-brick.jpg',
     alt: '南京城墙博物馆藏刘德華铭文城砖',

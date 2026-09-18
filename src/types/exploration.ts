@@ -16,6 +16,10 @@ export interface MissionObservation {
   imageId: string
   /** 观察提示语。 */
   prompt: string
+  /** 未观察时图片下方的操作提示，默认「点击城砖图片进行观察」。 */
+  actionLabel?: string
+  /** 已观察后图片下方的状态文字，默认「✓ 已观察砖面」。 */
+  doneLabel?: string
   /** 完成观察后的发现反馈标题。 */
   findingTitle: string
   /** 完成观察后的发现反馈正文。 */

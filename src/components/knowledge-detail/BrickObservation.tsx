@@ -48,7 +48,9 @@ export function BrickObservation({ mission, onObserved }: Props) {
         >
           <img src={`${import.meta.env.BASE_URL}${image.src}`} alt={image.alt} />
           <span className="brick-observation__action">
-            {observed ? '✓ 已观察砖面' : '点击城砖图片进行观察'}
+            {observed
+              ? (observation.doneLabel ?? '✓ 已观察砖面')
+              : (observation.actionLabel ?? '点击城砖图片进行观察')}
           </span>
         </button>
       ) : null}
