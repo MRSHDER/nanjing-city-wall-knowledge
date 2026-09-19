@@ -162,8 +162,6 @@ export function KnowledgeDetail() {
             <>
               {needsObservation ? null : <NodeImages key={node.id} imageIds={node.imageIds} />}
 
-              {isInscription ? <BrickInscriptionCard /> : null}
-
               {isDutyChain ? (
                 <BrickInscriptionCard
                   variant="trace"
