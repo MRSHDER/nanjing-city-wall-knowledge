@@ -8,6 +8,7 @@ import { BrickObservation } from './BrickObservation'
 import { InscriptionQuest } from './InscriptionQuest'
 import { LogisticsPath, type LogisticsStage } from './LogisticsPath'
 import { NodeImages } from './NodeImages'
+import { ReflectionPrompt } from './ReflectionPrompt'
 
 const CATEGORY_LABEL: Record<string, string> = {
   'cat-overview': '城墙总览',
@@ -54,6 +55,7 @@ export function KnowledgeDetail() {
   const isLogistics = node.id === 'node-ming-logistics'
   const isRead = mission?.kind === 'read'
   const isObserve = mission?.kind === 'observe'
+  const isReflect = mission?.kind === 'reflect'
   const answeredCorrect = verdict === 'correct'
   const alreadyCompleted = Boolean(mission && session.completedMissionIds.includes(mission.id))
   const needsObservation = Boolean(mission?.observation)
@@ -177,6 +179,8 @@ export function KnowledgeDetail() {
 
               {isInscription && mission ? (
                 <InscriptionQuest key={mission.id} mission={mission} />
+              ) : isReflect && mission ? (
+                <ReflectionPrompt key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
               ) : mission && !isObserve ? (
                 <MissionPanel key={mission.id} mission={mission} onVerdictChange={handleVerdict} />
               ) : null}

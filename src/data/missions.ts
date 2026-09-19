@@ -316,23 +316,24 @@ export const missions: Mission[] = [
     unlocksNodeIds: ['node-heritage'],
     exploreValue: 20,
   },
-  // 预留照片 G：城门近现代变迁展板，或「明故宫变迁」时间线，两者择一即可。
+  // 收束节点：全程唯一一个不做选择题的节点，改为开放思考 → 展开参考思考 → 完成。
   {
     id: 'mission-heritage',
     nodeId: 'node-heritage',
     title: '城墙的故事，到今天结束了吗？',
     brief:
       '从城垣、城门，到营造、城砖、铭文、产地和运输，我们沿着一块块实物留下的线索重新认识了南京城墙。但城墙的历史并没有停在明代。',
-    prompt: '今天我们为什么还要继续认识和保护南京城墙？',
-    kind: 'choose',
-    // 收束题：三项都是继续探索的方向，选任意一项都可以完成，不设置错误价值观选项。
-    choices: [
-      { id: 'a', label: '它仍然留在城市里，连接着今天的生活', correct: true },
-      { id: 'b', label: '它还需要被继续研究和认识', correct: true },
-      { id: 'c', label: '它见证的城市变化值得被保留下来', correct: true },
-    ],
-    explanation:
-      '城市不断变化，城墙、城门以及相关遗存也经历着保存、改变与重新认识。今天对南京城墙的保护与研究，让这些跨越数百年的历史线索继续留在城市之中。从城墙出发，我们最终又回到了今天的南京。',
+    prompt: '今天，我们为什么还要保护南京城墙？',
+    kind: 'reflect',
+    reflection: {
+      invitation: '经过前面的探索，你认为南京城墙对今天意味着什么？',
+      actionLabel: '查看参考思考',
+      doneLabel: '✓ 探索完成',
+      paragraphs: [
+        '南京城墙不仅是一项古代工程，也是今天城市历史与文化的重要见证。',
+        '从筑城工艺、城门防御、城砖铭文到运输体系，每一块城砖都记录着过去的人与城市的联系。今天的保护，不只是保存城墙本身，也是让更多人理解它背后的历史价值。',
+      ],
+    },
     unlocksNodeIds: [],
     exploreValue: 20,
   },

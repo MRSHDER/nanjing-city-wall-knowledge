@@ -1,6 +1,6 @@
 import type { AchievementId, MissionId, NodeId } from './ids'
 
-export type MissionKind = 'read' | 'choose' | 'observe'
+export type MissionKind = 'read' | 'choose' | 'observe' | 'reflect'
 
 export interface MissionChoice {
   id: string
@@ -26,6 +26,18 @@ export interface MissionObservation {
   findingText: string
 }
 
+/** 收束用的开放思考任务：不设选项、无对错，展开参考思考即视为完成本题。 */
+export interface MissionReflection {
+  /** 引导用户自己想的第二句提示，显示在问题之后。 */
+  invitation: string
+  /** 展开按钮文案，默认「查看参考思考」。 */
+  actionLabel?: string
+  /** 展开后的完成状态文案，默认「✓ 探索完成」。 */
+  doneLabel?: string
+  /** 展开后显示的参考思考段落。 */
+  paragraphs: string[]
+}
+
 export interface Mission {
   id: MissionId
   nodeId: NodeId
@@ -39,6 +51,8 @@ export interface Mission {
   explanation?: string
   /** 图片观察配置；存在时该任务先观察后作答。 */
   observation?: MissionObservation
+  /** 开放思考配置（kind 为 reflect 时使用）。 */
+  reflection?: MissionReflection
   /** 完成后新变为 available 的节点。 */
   unlocksNodeIds: NodeId[]
   exploreValue: number

@@ -1,0 +1,37 @@
+/*
+ * 收束节点的开放思考样式。
+ * 外观复用 .mission-panel（边框、底色、h3、进入动画都由它提供），这里只补充
+ * 提问、展开按钮与参考思考内容三处。
+ */
+
+.reflection-prompt__question {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.reflection-prompt__invitation {
+  margin: 0 0 18px;
+  color: var(--color-muted);
+}
+
+.reflection-prompt__answer p {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.75;
+}
+
+.reflection-prompt__answer strong {
+  margin-top: 4px;
+  font-size: 18px;
+  color: var(--color-completed);
+}
+
+/* 展开按钮：与项目里其他“大按钮”一致的描金样式 */
+.reflection-prompt__action {
+  width: 100%;
+  min-height: var(--tap-min);
+  font-size: 20px;
+  background: rgba(212, 160, 23, 0.14);
+  border-color: rgba(212, 160, 23, 0.5);
+  color: var(--color-text);
+}
