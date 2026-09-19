@@ -1,6 +1,21 @@
 .completion-reopen { position: absolute; z-index: 6; top: 100px; left: 32px; }
-.completion-summary { width: min(760px, 92vw); max-height: 90vh; overflow: auto; padding: 32px; border: 1px solid #d4a017; border-radius: 18px; background: #1f1a14; color: var(--color-text); }
-.completion-summary::backdrop { background: rgb(0 0 0 / 75%); }
+.completion-summary {
+  width: min(760px, 92vw); max-height: 90vh; overflow: auto; padding: 32px;
+  border: 1px solid #d4a017; border-radius: 18px; color: var(--color-text);
+  /* 底图（路径由组件注入的 --completion-bg 提供）+ 左暗右亮横向遮罩：
+     文字集中在左侧暗区保证对比度，右侧透出底图（月亮、城墙、城砖） */
+  background:
+    linear-gradient(
+      90deg,
+      rgba(16, 12, 9, 0.93) 0%,
+      rgba(16, 12, 9, 0.88) 58%,
+      rgba(16, 12, 9, 0.6) 80%,
+      rgba(16, 12, 9, 0.24) 100%
+    ),
+    var(--completion-bg, none) center / cover no-repeat,
+    #1f1a14;
+}
+.completion-summary::backdrop { background: rgb(0 0 0 / 78%); }
 .completion-summary h2 { margin-top: 12px; font-size: 30px; }
 .completion-summary p, .completion-summary li { line-height: 1.7; }
 .completion-summary form { display: inline-block; margin: 0 12px 12px 0; }
