@@ -1,0 +1,37 @@
+/*
+ * 全局点击反馈（金色波纹）样式。
+ * 节点由 src/utils/clickFeedback.ts 在 pointerdown 时动态创建，动画结束即移除。
+ * 只用 transform + opacity，避免逐帧 layout。
+ */
+
+.click-ripple {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  /* 关键：绝不拦截点击，波纹只作为确认反馈存在 */
+  pointer-events: none;
+  /* 浅金描边 + 金色填充：深色底与金色按钮上都能看见（同一金色系，主色仍为 #D4A017） */
+  border: 2px solid rgba(255, 240, 198, 0.55);
+  background: radial-gradient(
+    circle,
+    rgba(255, 240, 198, 0.42) 0%,
+    rgba(212, 160, 23, 0.34) 44%,
+    rgba(212, 160, 23, 0) 74%
+  );
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.1);
+  will-change: transform, opacity;
+  z-index: 2147483000;
+}
+
+/* 走 popover 时元素进入 top layer（可覆盖在 <dialog> 之上）；
+   这里只需盖掉 UA 的 inset: 0，位置由内联的 left/top 给出，
+   其余 UA 默认样式（border/padding/margin/background）本就会被作者样式压过。 */
+.click-ripple[popover] {
+  inset: auto;
+  overflow: visible;
+}
