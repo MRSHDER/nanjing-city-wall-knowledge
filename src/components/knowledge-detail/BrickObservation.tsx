@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { exhibitImages } from '@/data/images'
+import { useImageReady } from '@/hooks/useImageReady'
 import { useExploration } from '@/state/ExplorationContext'
 import type { Mission } from '@/types'
 import './brick-observation.css'
@@ -22,6 +23,9 @@ export function BrickObservation({ mission, onObserved }: Props) {
   const [observed, setObserved] = useState(revisit)
   const dialog = useRef<HTMLDialogElement>(null)
   const image = observation ? exhibitImages[observation.imageId] : undefined
+  const imageSrc = image ? `${import.meta.env.BASE_URL}${image.src}` : ''
+  // 预加载状态：未就绪时显示占位，并用原始尺寸预留比例，避免图片出现时跳一下
+  const { loading: imageLoading, width: imageW, height: imageH } = useImageReady(imageSrc)
 
   useEffect(() => {
     onObserved?.(observed)
@@ -54,11 +58,15 @@ export function BrickObservation({ mission, onObserved }: Props) {
         <>
           <button
             type="button"
-            className={`brick-observation__frame${observed ? ' is-observed' : ''}`}
+            className={`brick-observation__frame${observed ? ' is-observed' : ''}${imageLoading ? ' is-loading' : ''}`}
             aria-label={`放大查看：${image.alt}`}
             onClick={onZoomIn}
           >
-            <img src={`${import.meta.env.BASE_URL}${image.src}`} alt={image.alt} />
+            <img
+              src={imageSrc}
+              alt={image.alt}
+              style={imageW > 0 && imageH > 0 ? { aspectRatio: `${imageW} / ${imageH}` } : undefined}
+            />
             <span className="brick-observation__zoom-hint">点击图片放大观察 ↗</span>
           </button>
 

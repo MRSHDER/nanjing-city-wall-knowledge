@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { App } from './App'
 import { ExplorationProvider } from './state/ExplorationContext'
 import { installClickFeedback } from './utils/clickFeedback'
+import { scheduleImagePreload } from './services/imagePreloader'
 import './styles/global.css'
 
 const root = document.getElementById('root')
@@ -20,3 +21,6 @@ createRoot(root).render(
     </ExplorationProvider>
   </StrictMode>,
 )
+
+// 首页渲染完成后，在浏览器空闲时后台预加载全部图片（不阻塞首页与「开始探索」）
+scheduleImagePreload()

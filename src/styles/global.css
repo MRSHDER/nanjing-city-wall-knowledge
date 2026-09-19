@@ -294,6 +294,44 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   border-color: var(--color-available);
 }
 
+/* ---------- 图片占位与淡入：未就绪时深色底 + 极轻的载入提示，就绪后 180ms 淡入 ----------
+   只作用于现有图片容器，不改变布局与尺寸；图片框高度由各自 CSS 决定或按原始比例预留。 */
+.node-photo__open.is-loading::after,
+.brick-observation__frame.is-loading::after {
+  content: '载入中…';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(20, 16, 12, 0.6);
+  color: rgba(212, 160, 23, 0.8);
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  animation: media-hint 1.6s ease-in-out infinite;
+}
+@keyframes media-hint {
+  0%,
+  100% { opacity: 0.5; }
+  50% { opacity: 0.92; }
+}
+.node-photo__open img,
+.brick-observation__frame img {
+  transition: opacity 180ms var(--ease-out);
+}
+.node-photo__open.is-loading img,
+.brick-observation__frame.is-loading img {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .node-photo__open.is-loading::after,
+  .brick-observation__frame.is-loading::after {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
 /* ---------- 统一滚动条：深棕轨道 + 暗金滑块，hover / active 用主金色 ----------
    仅替换滚动条的视觉，不改动任何滚动逻辑，也不影响键盘 / 无障碍滚动。
    说明：这里只写 ::-webkit-scrollbar（Chromium / Edge）。

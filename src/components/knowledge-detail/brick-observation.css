@@ -19,6 +19,7 @@
 
 /* 图片区：点击只负责放大查看，不代表观察完成 */
 .brick-observation__frame {
+  position: relative;
   display: block;
   width: 100%;
   padding: 8px;
