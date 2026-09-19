@@ -279,8 +279,8 @@ export const missions: Mission[] = [
     unlocksNodeIds: ['node-ming-logistics'],
     exploreValue: 20,
   },
-  // 素材 F 已接入：与 mission-brick-origin 共用《南京城墙砖产地及运输水系图》，
-  // 本节点重点观察「怎样到南京」，不需要为两关各准备一张不同的地图。
+  // 本节点不再做图片观察：《南京城墙砖产地及运输水系图》已在「城砖产地」节点观察过，
+  // 这里直接进入运输问题的作答，不重复一次看图。
   {
     id: 'mission-ming-logistics',
     nodeId: 'node-ming-logistics',
@@ -305,14 +305,6 @@ export const missions: Mission[] = [
     ],
     explanation:
       '产地与水系共同构成了一张跨区域的运输网络。城砖沿水路汇集、转运，最终来到南京，成为城墙的一部分。',
-    observation: {
-      imageId: 'brick-origin-map',
-      prompt: '再看这张图，这次顺着水系，从产地一路看到南京。',
-      actionLabel: '完成观察',
-      doneLabel: '✓ 已完成观察',
-      findingTitle: '发现线索｜水系把产地连向南京',
-      findingText: '水系在地图上把分散的产地连接到同一个终点，这条线路就是城砖汇入南京的通道。',
-    },
     unlocksNodeIds: ['node-heritage'],
     exploreValue: 20,
   },
