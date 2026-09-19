@@ -39,7 +39,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '城墙不仅是一道防御设施，也是一项庞大的城市与营造工程。沿着知识关系继续探索，我们可以从空间、工程和人的痕迹逐步认识它。',
+      '城墙既是防御设施，也是一项庞大的城市工程。',
     unlocksNodeIds: ['node-four-walls', 'node-city-gate'],
     exploreValue: 20,
   },
@@ -67,7 +67,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '从宫城、皇城到京城、外郭，南京形成了层层展开的城垣格局。理解这些空间层次，是继续认识城门与城市防御的第一步。',
+      '宫城、皇城、京城、外郭，构成了层层展开的城垣格局。',
     unlocksNodeIds: ['node-engineering'],
     exploreValue: 20,
   },
@@ -96,7 +96,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '一座城门连接的不只是城墙两侧。它同时记录着防御、道路、城市格局以及城市不断变化的历史。',
+      '城门连接的不只是两侧，还记录着城市的格局与变化。',
     unlocksNodeIds: ['node-wengcheng'],
     exploreValue: 20,
   },
@@ -124,35 +124,19 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '瓮城把单一的城门入口转化为更复杂的防御空间。城墙的防御能力，不只来自“高”和“厚”，也来自空间结构的设计。',
+      '瓮城把单一入口变成了更复杂的防御空间。',
     unlocksNodeIds: ['node-brick'],
     exploreValue: 20,
   },
   // 素材 C 已接入：南京城墙博物馆「城砖制作 / Production of Bricks」展板（实地调研拍摄，2026）。
+  // 本节点只保留图片观察，不设选择题（工序顺序在展板图与节点线索里都能读到）。
   {
     id: 'mission-engineering',
     nodeId: 'node-engineering',
     title: '一块城砖是怎样做出来的？',
     brief: '筑城从材料开始。制作一块合格的城砖，首先要处理制砖所需的土。',
-    prompt: '南京城墙博物馆「城砖制作」展板显示，原料处理依次经过哪几道环节？',
-    kind: 'choose',
-    choices: [
-      { id: 'a', label: '择土 → 熟土 → 过筛 → 暖水', correct: true },
-      {
-        id: 'b',
-        label: '过筛 → 择土 → 暖水 → 熟土',
-        correct: false,
-        hint: '要先选出可用的土，之后才谈得上处理。',
-      },
-      {
-        id: 'c',
-        label: '暖水 → 熟土 → 过筛 → 择土',
-        correct: false,
-        hint: '选土是第一步，这一组把顺序倒过来了。',
-      },
-    ],
-    explanation:
-      '从择土、熟土、过筛到暖水，原料需要经过细致处理。不同地区的黏土成分不同，也让南京城砖呈现出不同的质地和色彩。',
+    prompt: '仔细观察这块展板，留意制砖用土的样貌和处理后的变化。',
+    kind: 'observe',
     observation: {
       imageId: 'brick-production',
       prompt: '仔细观察这块展板，留意制砖用土的样貌和处理后的变化。',
@@ -205,7 +189,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '这些文字把一块普通的建筑材料变成了可以追踪的信息载体。沿着铭文，我们不仅能寻找它从哪里来，还能继续寻找参与制作和管理的人。',
+      '铭文让一块砖变成了可以追踪的信息载体。',
     observation: {
       imageId: 'inscribed-brick',
       prompt: '仔细观察这块有铭文的城砖。它留下的并不只是一串文字。',
@@ -238,7 +222,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '铭文让生产责任能够被追踪。一块砖背后连接着管理、组织与制作人员，这也是我们今天能够通过实物重新认识筑城工程的重要原因。',
+      '铭文让生产责任可以被逐层追踪。',
     unlocksNodeIds: ['node-brick-origin'],
     exploreValue: 20,
   },
@@ -267,7 +251,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '一块块城砖把不同地区与南京连接起来。但新的问题也出现了：数量庞大、重量惊人的城砖，是怎样来到南京的？',
+      '城砖把不同地区与南京连接了起来。',
     observation: {
       imageId: 'brick-origin-map',
       prompt: '先看这张图：图上除了地形，还标出了城砖产地和运输水系。',
@@ -304,7 +288,7 @@ export const missions: Mission[] = [
       },
     ],
     explanation:
-      '产地与水系共同构成了一张跨区域的运输网络。城砖沿水路汇集、转运，最终来到南京，成为城墙的一部分。',
+      '产地与水系连成一张跨区域的运输网络。',
     unlocksNodeIds: ['node-heritage'],
     exploreValue: 20,
   },

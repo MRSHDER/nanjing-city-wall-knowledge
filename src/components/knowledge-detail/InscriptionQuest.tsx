@@ -9,8 +9,7 @@ const JUDGE_OPTIONS = [
     id: 'info',
     label: '产地、人名，以及制作与责任信息',
     correct: true,
-    explanation:
-      '这些文字把一块普通的建筑材料变成了可以追踪的信息载体。沿着铭文，我们不仅能寻找它从哪里来，还能继续寻找参与制作和管理的人。',
+    explanation: '铭文让一块砖变成了可以追踪的信息载体。',
   },
   {
     id: 'kiln',
@@ -96,7 +95,7 @@ export function InscriptionQuest({ mission }: Props) {
       {judgeStatus === 'correct' ? (
         <div className="mission-success">
           <strong>✓ 探索完成</strong>
-          <span>{JUDGE_OPTIONS[0].explanation} 可以返回图谱继续探索。</span>
+          <span>{JUDGE_OPTIONS[0].explanation}</span>
         </div>
       ) : null}
     </section>
