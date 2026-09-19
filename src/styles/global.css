@@ -293,3 +293,51 @@ button:focus-visible { outline: 3px solid var(--color-discovered); outline-offse
   color: var(--color-available);
   border-color: var(--color-available);
 }
+
+/* ---------- 统一滚动条：深棕轨道 + 暗金滑块，hover / active 用主金色 ----------
+   仅替换滚动条的视觉，不改动任何滚动逻辑，也不影响键盘 / 无障碍滚动。
+   说明：这里只写 ::-webkit-scrollbar（Chromium / Edge）。
+   不再声明 scrollbar-width / scrollbar-color —— 一旦声明，Chromium 会忽略下面的
+   webkit 样式，反而拿不到圆角、hover 与箭头隐藏。 */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--color-panel);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb {
+  /* 暗金色滑块；1px 透明描边留出胶囊内缩，避免贴死轨道 */
+  background: rgba(176, 135, 31, 0.55);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 160, 23, 0.85);
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:active {
+  background: var(--color-available);
+  background-clip: padding-box;
+}
+/* 隐藏上下箭头按钮（Chromium 支持） */
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+/* 横竖滚动条交汇处的默认白块 */
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* 非 webkit 内核（如 Firefox）：用标准属性给一个同色系的细滚动条兜底。
+   注意 @supports 的写法：Chromium 支持 selector(::-webkit-scrollbar)，
+   因此这段在 Chromium 里会被跳过，不会反过来顶掉上面的 webkit 样式。 */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #b0871f var(--color-panel);
+  }
+}
